@@ -1,6 +1,7 @@
 import requests
+import pandas as pd
 
-def get_top_tracks_or_artists(type="tracks", time_range="medium_term", limit=20, offset=0):
+def get_top_tracks(type="tracks", time_range="medium_term", limit=20, offset=0):
     # Define the base URL for the API endpoint
     base_url = "https://api.spotify.com/v1/me/top/{type}"
 
@@ -30,5 +31,28 @@ def get_top_tracks_or_artists(type="tracks", time_range="medium_term", limit=20,
         print(f"Error: {response.status_code}")
         return None
 
+def preprocess_track_data(json_response):
+    track_data = []
+
+    for track_info in json_response:
+        track = {
+            "spotify_url": track_info["external_urls"]["spotify"],
+            "total_followers": track_info["followers"]["total"],
+            "genres": ", ".join(track_info["genres"]),
+            "href": track_info["href"],
+            "artist_id": track_info["id"],
+            "image_url": track_info["images"][0]["url"],
+            "artist_name": track_info["name"],
+            "popularity": track_info["popularity"],
+            "artist_type": track_info["type"],
+            "uri": track_info["uri"]
+        }
+        track_data.append(track)
+
+    df = pd.DataFrame(track_data)
+    return df
+
 # Example usage:
-top_tracks = get_top_tracks_or_artists(type="tracks", time_range="medium_term", limit=20, offset=0)
+top_tracks = get_top_tracks(type="tracks", time_range="medium_term", limit=20, offset=0)
+df = preprocess_track_data(top_tracks)
+
