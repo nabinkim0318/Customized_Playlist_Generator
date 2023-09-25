@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 from sklearn.metrics import silhouette_score
 
 
-def get_top_tracks_href(type="tracks", time_range="medium_term", limit=20, offset=0):
+def get_top_tracks_href(type="tracks", time_range="medium_term", limit=20, offset=0, access_token):
     # Define the base URL for the API endpoint
     base_url = "https://api.spotify.com/v1/me/top/tracks"
 
@@ -20,7 +20,7 @@ def get_top_tracks_href(type="tracks", time_range="medium_term", limit=20, offse
 
     # Replace 'ACCESS_TOKEN' with the Spotify access token
     headers = {
-        "Authorization": "Bearer YOUR_ACCESS_TOKEN"
+        "Authorization": f"Bearer {access_token}"
     }
 
     # Make the GET request
@@ -67,7 +67,7 @@ def get_full_json_response(href_url, limit=None):
         return None
     
 
-def preprocess_track_data(top_items_list):
+def preprocess_track_features(top_items_list):
     # preprocess the spotify api's information to match with the MSD dataset
     track_data = []
 
@@ -89,9 +89,11 @@ def preprocess_track_data(top_items_list):
     df = pd.DataFrame(track_data)
     return df
 
-def additional_track_information():
-    # retrieves any additional information like danceability etc if necessary
+
+def preprocess_track_analysis(top_items_list):
+    # concatenated features that are inside the audio analysis from spotify API
     print()
+
 
 if __name__ == "__main__":
     href_url = get_top_tracks_href(type="tracks", time_range="medium_term", limit=20, offset=0)
