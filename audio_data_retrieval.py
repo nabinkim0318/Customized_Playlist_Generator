@@ -1,19 +1,16 @@
 import youtube_dl
-
 import requests
 
-def find_youtube_audio_url(artist, song_title, api_key):
-    # given a artist name and song_title, find the corresponding youtube video of it 
+def find_youtube_audio_url(track_info, api_key):
     try:
-        query = f"{artist} {song_title}"
+        query = f"{track_info} official audio"
         url = "https://www.googleapis.com/youtube/v3/search"
         params = {
             "key": api_key,
             "q": query,
             "maxResults": 1,  
-            "type": "audio"  
+            "type": "video"  
         }
-
         response = requests.get(url, params=params)
 
         # Check for a successful response
@@ -30,10 +27,9 @@ def find_youtube_audio_url(artist, song_title, api_key):
             else:
                 return "No 'items' field in the response."
         else:
-            return f"Error: {response.status_code}"
+            return f"Error ({response.status_code}): {response.text}"
     except Exception as e:
         return f"An error occurred: {str(e)}"
-
 
 
 def download_audio(url, output_directory):
@@ -45,6 +41,7 @@ def download_audio(url, output_directory):
             'preferredquality': '192',
         }],
         'outtmpl': f'{output_directory}/%(title)s.%(ext)s',
+        'verbose': True
     }
 
     with youtube_dl.YoutubeDL(ydl_opts) as ydl:
@@ -52,13 +49,13 @@ def download_audio(url, output_directory):
 
 
 if __name__ == "__main__":
-    # testing for finding a youtube url 
+    # Testings are done
     api_key = "API_KEY"
-    artist = "Artist Name"
-    song_title = "Song Title"
+    track_info = "Artist Song_Title"
     youtube_url = find_youtube_audio_url(artist, song_title, api_key)
     print(f"YouTube Audio URL: {youtube_url}")
 
-    youtube_url = "https://www.youtube.com/watch?v=VIDEO_ID"
-    output_directory = "your_output_directory"
+    youtube_url = "https://www.youtube.com/watch?v=o2zHd4147sk"
+    home_directory = os.path.expanduser("~")
+    output_directory = os.path.join(home_directory, "Downloads")
     download_audio(youtube_url, output_directory)
