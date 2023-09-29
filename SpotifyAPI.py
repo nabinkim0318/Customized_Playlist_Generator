@@ -12,7 +12,7 @@ scope="user-top-read",
 ))
 
 def get_audio_features(track_id):
-audio_features = sp.audio_features(track_id)
+    audio_features = sp.audio_features(track_id)
     if audio_features:
         return audio_features[0]
     else:
@@ -22,13 +22,14 @@ ranges = ['short_term', 'medium_term', 'long_term']
 
 for sp_range in ranges:
     print("range:", sp_range)
-results = sp.current_user_top_tracks(time_range=sp_range, limit=50)
+    results = sp.current_user_top_tracks(time_range=sp_range, limit=50)
     for i, item in enumerate(results['items']):
         print(i, item['name'], '//', item['artists'][0]['name'])
-        # track's audio features
-track_id = item['id']
-audio_features = get_audio_features(track_id)
-            
+        
+        # Track's audio features
+        track_id = item['id']
+        audio_features = get_audio_features(track_id)
+        
         if audio_features:
             print("Audio Features:")
             print("Danceability:", audio_features['danceability'])
