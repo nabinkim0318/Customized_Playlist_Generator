@@ -19,6 +19,28 @@
 17. If We Ever Broke Up // Mae Stephens
 18. Cold Heart - PNAU Remix // Elton John
 
+songs = [
+    "STAY (with Justin Bieber) The Kid LAROI",
+    "Star Colde",
+    "Watermelon Sugar Harry Styles",
+    "Sure Thing Miguel",
+    "Lil Bit Nelly",
+    "Numb Marshmello",
+    "Dance The Night - From Barbie The Album Dua Lipa",
+    "Unstoppable Sia",
+    "Someone To You BANNERS",
+    "2 Be Loved (Am I Ready) Lizzo",
+    "Fly Away Tones And I",
+    "Levitating (feat. DaBaby) Dua Lipa",
+    "I Ain't Worried OneRepublic",
+    "Victoria's Secret Jax",
+    "Clarity Vance Joy",
+    "Waffle House Jonas Brothers",
+    "Big Energy Latto",
+    "If We Ever Broke Up Mae Stephens",
+    "Cold Heart - PNAU Remix Elton John"
+]
+
 # range: medium_term
 dict_keys(['items', 'total', 'limit', 'offset', 'href', 'next', 'previous'])
 <class 'dict'>
@@ -41,6 +63,29 @@ dict_keys(['items', 'total', 'limit', 'offset', 'href', 'next', 'previous'])
 16. Big Energy // Latto
 17. If We Ever Broke Up // Mae Stephens
 18. Cold Heart - PNAU Remix // Elton John
+
+songs = [
+    "STAY (with Justin Bieber) The Kid LAROI",
+    "Star Colde",
+    "Watermelon Sugar Harry Styles",
+    "Sure Thing Miguel",
+    "Lil Bit Nelly",
+    "Numb Marshmello",
+    "Dance The Night - From Barbie The Album Dua Lipa",
+    "Unstoppable Sia",
+    "Someone To You BANNERS",
+    "2 Be Loved (Am I Ready) Lizzo",
+    "Fly Away Tones And I",
+    "Levitating (feat. DaBaby) Dua Lipa",
+    "I Ain't Worried OneRepublic",
+    "Victoria's Secret Jax",
+    "Clarity Vance Joy",
+    "Waffle House Jonas Brothers",
+    "Big Energy Latto",
+    "If We Ever Broke Up Mae Stephens",
+    "Cold Heart - PNAU Remix Elton John"
+]
+
 
 # range: long_term
 dict_keys(['items', 'total', 'limit', 'offset', 'href', 'next', 'previous'])
@@ -81,3 +126,42 @@ dict_keys(['items', 'total', 'limit', 'offset', 'href', 'next', 'previous'])
 33. Trautorium Jetztzeit #4 // Liesl Ujvary
 34. Changes // Justin Bieber
 35. You Will Be Found (with Summer Walker) - From The “Dear Evan Hansen” Original Motion Picture Soundtrack // Sam Smith
+
+songs = [
+    "I′m In Love (Piano RMX) Ra.D",
+    "Be Be Your Love Rachael Yamagata",
+    "Marine Francis Dhomont",
+    "STAY (with Justin Bieber) The Kid LAROI",
+    "Star Colde",
+    "Hong Kong 2046 Hong Kong Express",
+    "Peaches (feat. Daniel Caesar & Giveon) Justin Bieber",
+    "I'm In Love Colde",
+    "Watermelon Sugar Harry Styles",
+    "Sure Thing Miguel",
+    "Lil Bit Nelly",
+    "Numb Marshmello",
+    "Dance The Night - From Barbie The Album Dua Lipa",
+    "Unstoppable Sia",
+    "It′s You Colde",
+    "Someone To You BANNERS",
+    "2 Be Loved (Am I Ready) Lizzo",
+    "Fly Away Tones And I",
+    "Levitating (feat. DaBaby) Dua Lipa",
+    "I Ain't Worried OneRepublic",
+    "Victoria's Secret Jax",
+    "Clarity Vance Joy",
+    "Waffle House Jonas Brothers",
+    "Big Energy Latto",
+    "If We Ever Broke Up Mae Stephens",
+    "Cold Heart - PNAU Remix Elton John",
+    "Ressac 4 Erikm",
+    "Thread0 Benjamin Thigpen",
+    "Ovipool Justin Bennett",
+    "Texte 2 André Boucourechliev",
+    "Aerial Song Tod Dockstader",
+    "恢复 ２８１４",
+    "Week End Walter Ruttmann",
+    "Trautorium Jetztzeit #4 Liesl Ujvary",
+    "Changes Justin Bieber",
+    "You Will Be Found (with Summer Walker) - From The “Dear Evan Hansen” Original Motion Picture Soundtrack Sam Smith"
+]
