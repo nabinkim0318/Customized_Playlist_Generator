@@ -61,7 +61,7 @@ def download_audio_given_list(track_list, output_directory, api_key):
     
 if __name__ == "__main__":
     # Testings are done
-    songs = [ "STAY (with Justin Bieber) The Kid LAROI", "Star Colde", "Watermelon Sugar Harry Styles", 
+    track_list = [ "STAY (with Justin Bieber) The Kid LAROI", "Star Colde", "Watermelon Sugar Harry Styles", 
              "Sure Thing Miguel", "Lil Bit Nelly", "Numb Marshmello", 
              "Dance The Night - From Barbie The Album Dua Lipa", "Unstoppable Sia", 
              "Someone To You BANNERS", "2 Be Loved (Am I Ready) Lizzo", "Fly Away Tones And I", 
