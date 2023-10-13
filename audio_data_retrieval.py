@@ -32,7 +32,7 @@ def find_youtube_audio_url(track_info, api_key):
         return f"An error occurred: {str(e)}"
 
 
-def download_audio(url, output_directory):
+def download_audio(url, output_directory, track_info):
     ydl_opts = {
         'format': 'bestaudio/best',
         'postprocessors': [{
@@ -40,7 +40,7 @@ def download_audio(url, output_directory):
             'preferredcodec': 'mp3',
             'preferredquality': '192',
         }],
-        'outtmpl': f'{output_directory}/%(title)s.%(ext)s',
+        'outtmpl': os.path.join(output_directory, f'{track_info}.mp3'),
         'verbose': True
     }
 
@@ -48,14 +48,27 @@ def download_audio(url, output_directory):
         ydl.download([url])
 
 
+def download_audio_given_list(track_list, output_directory, api_key):
+    for track_info in track_list:
+        youtube_url = find_youtube_audio_url(track_info, api_key)
+
+        if youtube_url:
+            print(f"YouTube Audio URL for {track_info}: {youtube_url}")
+            download_audio(youtube_url, output_directory, track_info)
+        else:
+            print(f"Could not find a YouTube audio URL for {track_info}")
+
+    
 if __name__ == "__main__":
     # Testings are done
-    api_key = "API_KEY"
-    track_info = "Artist Song_Title"
-    youtube_url = find_youtube_audio_url(artist, song_title, api_key)
-    print(f"YouTube Audio URL: {youtube_url}")
-
-    youtube_url = "https://www.youtube.com/watch?v=o2zHd4147sk"
+    songs = [ "STAY (with Justin Bieber) The Kid LAROI", "Star Colde", "Watermelon Sugar Harry Styles", 
+             "Sure Thing Miguel", "Lil Bit Nelly", "Numb Marshmello", 
+             "Dance The Night - From Barbie The Album Dua Lipa", "Unstoppable Sia", 
+             "Someone To You BANNERS", "2 Be Loved (Am I Ready) Lizzo", "Fly Away Tones And I", 
+             "Levitating (feat. DaBaby) Dua Lipa", "I Ain't Worried OneRepublic", "Victoria's Secret Jax",
+             "Clarity Vance Joy", "Waffle House Jonas Brothers", "Big Energy Latto", 
+             "If We Ever Broke Up Mae Stephens", "Cold Heart - PNAU Remix Elton John" ]
+    api_key = "API_KEY"    
     home_directory = os.path.expanduser("~")
     output_directory = os.path.join(home_directory, "Downloads")
-    download_audio(youtube_url, output_directory)
+    download_audio_given_list(track_list, output_directory, api_key)
