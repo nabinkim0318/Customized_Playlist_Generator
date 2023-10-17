@@ -69,7 +69,7 @@ if __name__ == "__main__":
              "Levitating (feat. DaBaby) Dua Lipa", "I Ain't Worried OneRepublic", "Victoria's Secret Jax", 
              "Clarity Vance Joy", "Waffle House Jonas Brothers", "Big Energy Latto", 
              "If We Ever Broke Up Mae Stephens", "Cold Heart - PNAU Remix Elton John" ]
-    api_key = "AIzaSyC8SXONO7zPJZzyuxRgMJ3ZWXpml1PSQvM"    
+    api_key = ""    
     home_directory = os.path.expanduser("~")
     output_directory = os.path.join(home_directory, "Downloads")
     download_audio_given_list(track_list, output_directory, api_key)
