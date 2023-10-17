@@ -1,4 +1,4 @@
-import youtube_dl
+import yt_dlp
 import requests
 import os
 
