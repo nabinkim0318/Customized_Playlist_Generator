@@ -2,6 +2,8 @@ import youtube_dl
 import requests
 import os
 
+import yt_dlp
+
 def find_youtube_audio_url(track_info, api_key):
     try:
         query = f"{track_info} official audio"
@@ -38,19 +40,19 @@ def download_audio(url, output_directory, track_info):
         'format': 'bestaudio/best',
         'postprocessors': [{
             'key': 'FFmpegExtractAudio',
-            'preferredcodec': 'mp3',
+            'preferredcodec': 'wav',
             'preferredquality': '192',
         }],
-        'outtmpl': os.path.join(output_directory, f'{track_info}.mp3'),
+        'outtmpl': os.path.join(output_directory, f'{track_info}'),
         'verbose': True
     }
 
-    with youtube_dl.YoutubeDL(ydl_opts) as ydl:
+    with yt_dlp.YoutubeDL(ydl_opts) as ydl:
         ydl.download([url])
 
 
 def download_audio_given_list(track_list, output_directory, api_key):
-    for track_info in track_list:
+    for track_info in track_list[1:]:
         youtube_url = find_youtube_audio_url(track_info, api_key)
 
         if youtube_url:
@@ -62,7 +64,7 @@ def download_audio_given_list(track_list, output_directory, api_key):
     
 if __name__ == "__main__":
     # Testings are done
-    track_list = [ "STAY (with Justin Bieber) The Kid LAROI", "Star Colde", "Watermelon Sugar Harry Styles", 
+    track_list = ["Star Colde", "Watermelon Sugar Harry Styles", 
              "Sure Thing Miguel", "Lil Bit Nelly", "Numb Marshmello", 
              "Dance The Night - From Barbie The Album Dua Lipa", "Unstoppable Sia", 
              "Someone To You BANNERS", "2 Be Loved (Am I Ready) Lizzo", "Fly Away Tones And I", 
