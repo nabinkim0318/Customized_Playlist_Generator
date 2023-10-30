@@ -1,0 +1,3 @@
+./trainData/01-D_AMairena.wav
+./trainData/24-M1_AMairena-Martinete.wav
+./trainData/63-M2_AMairena.wav
