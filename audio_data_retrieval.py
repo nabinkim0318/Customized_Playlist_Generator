@@ -40,7 +40,7 @@ def download_audio(url, output_directory, track_info):
         'format': 'bestaudio/best',
         'postprocessors': [{
             'key': 'FFmpegExtractAudio',
-            'preferredcodec': 'wav',
+            'preferredcodec': 'mp3',
             'preferredquality': '192',
         }],
         'outtmpl': os.path.join(output_directory, f'{track_info}'),
@@ -63,15 +63,18 @@ def download_audio_given_list(track_list, output_directory, api_key):
 
     
 if __name__ == "__main__":
-    # Testings are done
-    track_list = ["Star Colde", "Watermelon Sugar Harry Styles", 
-             "Sure Thing Miguel", "Lil Bit Nelly", "Numb Marshmello", 
-             "Dance The Night - From Barbie The Album Dua Lipa", "Unstoppable Sia", 
-             "Someone To You BANNERS", "2 Be Loved (Am I Ready) Lizzo", "Fly Away Tones And I", 
-             "Levitating (feat. DaBaby) Dua Lipa", "I Ain't Worried OneRepublic", "Victoria's Secret Jax", 
-             "Clarity Vance Joy", "Waffle House Jonas Brothers", "Big Energy Latto", 
-             "If We Ever Broke Up Mae Stephens", "Cold Heart - PNAU Remix Elton John" ]
-    api_key = ""    
+    # Constants 
+    DAY = 0              # replace with your actual day 
+    TOTAL_SONG = 300     # replace with your number of songs 
+    SONGS_PER_DAY = 100
+    
+    f = open("Nabin_0:400_sliced_data.txt", "r") # replace with your actual file name
+    track_list = f.read() 
+    track_list = data.split("\n") 
+    track_list.pop(TOTAL_SONG) # pop abnormal ' ' at the end of the list 
+    f.close() 
+    
+    api_key = " " # replace with your API key 
     home_directory = os.path.expanduser("~")
     output_directory = os.path.join(home_directory, "Downloads")
-    download_audio_given_list(track_list, output_directory, api_key)
+    download_audio_given_list(track_list[DAY*SONGS_PER_DAY:(DAY+1)*SONGS_PER_DAY], output_directory, api_key)
