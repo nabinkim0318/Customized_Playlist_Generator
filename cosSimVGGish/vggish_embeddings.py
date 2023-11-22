@@ -61,7 +61,7 @@ def ProcessWithVGGish(vgg, x, sr):
   pproc = vggish_postprocess.Postprocessor(pca_params_path)
   postprocessed_batch = pproc.postprocess(embedding_batch)
   # print('Postprocessed VGGish embedding: ', postprocessed_batch[0])
-  tf.reset_default_graph()
+ # tf.reset_default_graph()
   return np.array(postprocessed_batch)
 
 def EmbeddingsFromVGGish(vgg, x, sr):
@@ -78,16 +78,33 @@ def EmbeddingsFromVGGish(vgg, x, sr):
   resdict = {}
   for i, k in enumerate(layer_names):
     resdict[k] = results[i]
+  #tf.reset_default_graph()
   return resdict
 
 def read_vggish_embeddings(wav_path, hop_size = 0.96):
-    #sess = tf.Session()
-    vgg = CreateVGGishNetwork(0.96)
-    x, sr = sf.read(wav_path)
-    return ProcessWithVGGish(vgg, x, sr)
+  """LEGACY originally used to read in vggish embeddings from main.py
+
+  Args:
+      wav_path (_string_): path to wav files
+      hop_size (float, optional): _description_. Defaults to 0.96.
+
+  Returns:
+      embeddings of VGGish model
+  """
+  sess = tf.Session()
+  vgg = CreateVGGishNetwork(0.96)
+  x, sr = sf.read(wav_path)
+  resdict = EmbeddingsFromVGGish(vgg, x, sr)
+  tf.reset_default_graph()
+  # return ProcessWithVGGish(vgg, x, sr) # whitened and quantized
+  return resdict["embedding"]
   
-if __name__ == "__main__":
-    sess = tf.Session()
-    vgg = CreateVGGishNetwork(0.96)
-    x, sr = sf.read("/Users/leksa/Documents/GATECH/MUSI 6201 Audio Content Analysis/Project/Customized_Playlist_Generator/cosSimVGGish/trainData/01-D_AMairena.wav")
-    print(ProcessWithVGGish(vgg, x, sr))
+# if __name__ == "__main__":
+#     # sess = tf.Session()
+#     # vgg = CreateVGGishNetwork(0.96)
+#     # x, sr = sf.read("/Users/leksa/Documents/GATECH/MUSI 6201 Audio Content Analysis/Project/Customized_Playlist_Generator/cosSimVGGish/trainData/01-D_AMairena.wav")
+#     # print(ProcessWithVGGish(vgg, x, sr))
+    
+#   a = read_vggish_embeddings("/Users/leksa/Documents/GATECH/MUSI 6201 Audio Content Analysis/Project/Customized_Playlist_Generator/cosSimVGGish/trainData/Skrillex - Bangarang (Ft. Sirah) [Official Audio].wav")
+  
+#   print(a)

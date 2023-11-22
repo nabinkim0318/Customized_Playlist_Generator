@@ -10,6 +10,18 @@ git add .
 git commit -m "commit-message"
 git push
 ```
+### Update 11/21
+* MSD subset:
+    - the start points seem to be kind of random
+* Moved the location of VGGish model creation
+* Swapped to embeddings before whitening and before quantization:
+    - Results significantly improved compared to the times before
+    - Human listening test: seems like pre-whitening and pre-quantization performs better
+    - Range of similarities: pre-whitening and pre-quanitzation has a bigger range and result is closer to perception
+* Yet to implement alternative feature alignment but placeholder created.
+
+
+
 
 ### Update 11/16
 
