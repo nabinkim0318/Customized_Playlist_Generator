@@ -15,6 +15,8 @@ def extract_vggish(vgg, x, sr, postprocess=False, feature_alignment="repeat"):
     else:
         embedding = vggish_embeddings.EmbeddingsFromVGGish(vgg, x, sr)["embedding"]
         str_process = "preprocess"
+        
+    
     return embedding, str_process, feature_alignment
     
 
@@ -30,7 +32,7 @@ def main(_):
         x, sr = sf.read(audio_path + f)
         #resdict = vggish_embeddings.EmbeddingsFromVGGish(vgg, x, sr)
         #file_embed_dict[f] = resdict["embedding"]
-        embedding, str_process, feature_alignment = extract_vggish(vgg, x, sr, postprocess=True, feature_alignment="repeat")
+        embedding, str_process, feature_alignment = extract_vggish(vgg, x, sr, postprocess=False, feature_alignment="clip")
         file_embed_dict[f] = embedding
         
     # tfrecord_path = "./vggish-embeddings/"
@@ -52,7 +54,7 @@ def main(_):
         
         current_embedding = trainData_embedding_df.loc[i, "embedding"]
         assert seed_embedding.dtype == current_embedding.dtype, f"SEED dtype:{seed_embedding.dtype} CURRENT dypte: {current_embedding.dtype} "
-        sim = similarity.cosine_sim(seed_embedding, current_embedding)
+        sim = similarity.cosine_sim(seed_embedding, current_embedding, feature_alignment)
         similarities += [sim]
         print(sim)
     

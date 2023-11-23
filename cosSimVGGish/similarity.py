@@ -34,7 +34,7 @@ from sklearn.metrics.pairwise import cosine_similarity
 
 
 
-def feature_alignment(embedding1, embedding2):
+def feature_alignment_repeat(embedding1, embedding2):
     len_embed1 = len(embedding1)
     len_embed2 = len(embedding2)
     if len_embed1 > len_embed2:
@@ -52,13 +52,30 @@ def feature_alignment(embedding1, embedding2):
             embedding1 = np.concatenate([embedding1, embedding1[:remaining_rows, :]])
     assert len(embedding1) == len(embedding2), f"Your embedding1 shape is {len(embedding1)}. Your embedding2 shape is {len(embedding2)}"
     return embedding1, embedding2
+
+def feature_alignment_clip(embedding1, embedding2):
+    
+    len_embed1 = len(embedding1)
+    len_embed2 = len(embedding2)
+    if len_embed1 >  len_embed2:
+        embedding1 = embedding1[:len_embed2, :]
+        
+    if len_embed1 < len_embed2:
+        embedding2 = embedding2[:len_embed1, :]
+    
+    assert len(embedding1) == len(embedding2), f"Your embedding1 shape is {len(embedding1)}. Your embedding2 shape is {len(embedding2)}"
+    
+    return embedding1, embedding2
         
 
-def cosine_sim(embedding1, embedding2):
+def cosine_sim(embedding1, embedding2, feature_alignment):
     # Calculate cosine similarity between two embeddings.
     # embedding1 = read_embeddings_from_tfrecord(tfrecord1)
     # embedding2 = read_embeddings_from_tfrecord(tfrecord2)
-    embedding1_align, embedding2_align = feature_alignment(embedding1, embedding2)
+    if feature_alignment == "repeat":
+        embedding1_align, embedding2_align = feature_alignment_repeat(embedding1, embedding2)
+    if feature_alignment == "clip":
+        embedding1_align, embedding2_align = feature_alignment_clip(embedding1, embedding2)
     # dot_product = np.dot(embedding1, embedding2.T)
     # norm1 = np.linalg.norm(embedding1)
     # norm2 = np.linalg.norm(embedding2)

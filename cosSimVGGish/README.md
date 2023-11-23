@@ -10,6 +10,15 @@ git add .
 git commit -m "commit-message"
 git push
 ```
+
+### Update 11/23
+* Alternative feature alignment (clipping) created, does not work as well as repetitive feature alignment. 
+    - Makes sense, since it gives us more information. 
+* Post processing causes loss of information, and hence result in a worse performing similarity function. 
+    > The released AudioSet embeddings were postprocessed before release by applying a PCA transformation (which performs both PCA and whitening) as well as quantization to 8 bits per embedding element. This was done to be compatible with the YouTube-8M project which has released visual and audio embeddings for millions of YouTube videos in the same PCA/whitened/quantized format.
+
+    - both dimensionality reduction and quantization will cause loss of information. 
+
 ### Update 11/21
 * MSD subset:
     - the start points seem to be kind of random
@@ -18,7 +27,7 @@ git push
     - Results significantly improved compared to the times before
     - Human listening test: seems like pre-whitening and pre-quantization performs better
     - Range of similarities: pre-whitening and pre-quanitzation has a bigger range and result is closer to perception
-* Yet to implement alternative feature alignment but placeholder created.
+* Yet to implement alternative feature alignment but placeholder implemented
 
 
 
