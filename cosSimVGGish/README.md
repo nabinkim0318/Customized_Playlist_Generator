@@ -11,6 +11,16 @@ git commit -m "commit-message"
 git push
 ```
 
+### Update 12/5
+
+TOFIX:
+- For some reason, similarity does not have matching dimensions for baseline features. 
+- Spectral crest only has 1 value for the entire audio, need to check why (currently just have it repeated the number of blocks times)
+- Baseline feature currently has dimension of (19, num_blocks) 6 + 13 MFCCs
+- If we are keeping all embedding blocks and all baseline feature blocks, then we need to match the window and block size of the two. 
+- Could potentially also have a summary statistics of all features instead of block by block.
+- Moved global config variables to config.py
+
 ### Update 11/23
 * Alternative feature alignment (clipping) created, does not work as well as repetitive feature alignment. 
     - Makes sense, since it gives us more information. 
