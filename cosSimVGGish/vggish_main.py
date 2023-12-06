@@ -3,12 +3,12 @@ import similarity
 import os
 import pandas as pd
 import tensorflow.compat.v1 as tf
-import soundfile as sf
+import librosa
 import config
 
 SEED_SONG = config.SEED_SONG
 FEATURE_ALIGNMENT = config.FEATURE_ALIGNMENT
-
+SAMPLING_RATE = config.SAMPLING_RATE
 
 
 def extract_vggish(vgg, x, sr, postprocess=False):
@@ -31,7 +31,7 @@ def vggish_similarity_rank(audio_path):
     vgg = vggish_embeddings.CreateVGGishNetwork(0.96)
     for f in audios:
         print(f)
-        x, sr = sf.read(audio_path + f)
+        x, sr = librosa.load(audio_path + f, sr = SAMPLING_RATE, mono=True)
         #resdict = vggish_embeddings.EmbeddingsFromVGGish(vgg, x, sr)
         #file_embed_dict[f] = resdict["embedding"]
         embedding, str_process = extract_vggish(vgg, x, sr, postprocess=False)

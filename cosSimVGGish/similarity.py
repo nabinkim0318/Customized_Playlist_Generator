@@ -35,36 +35,59 @@ from sklearn.metrics.pairwise import cosine_similarity
 
 
 def feature_alignment_repeat(embedding1, embedding2):
-    len_embed1 = len(embedding1)
-    len_embed2 = len(embedding2)
-    if len_embed1 > len_embed2:
+    num_row_embed1 = embedding1.shape[0]
+    num_row_embed2 = embedding2.shape[0]
+    num_col_embed1 = embedding1.shape[1]
+    num_col_embed2 = embedding2.shape[1]
+    if num_row_embed1 > num_row_embed2:
         # embedding2 = np.vstack(embedding2, embedding2[:(len_embed1-len_embed2), :])
-        embedding2 = np.tile(embedding2, (len_embed1 // len_embed2, 1))
-        remaining_rows = len_embed1 % len_embed2
+        embedding2 = np.tile(embedding2, (num_row_embed1 // num_row_embed2, 1))
+        remaining_rows = num_row_embed1 % num_row_embed2
         if remaining_rows > 0:
-            embedding2 = np.concatenate([embedding2, embedding2[:remaining_rows, :]])
+            embedding2 = np.vstack((embedding2, embedding2[:remaining_rows, :]))
 
-    if len_embed1 < len_embed2:
+    if num_row_embed1 < num_row_embed2:
         # embedding1 = np.vstack(embedding1, embedding1[:(len_embed2-len_embed1), :])
-        embedding1 = np.tile(embedding1, (len_embed2 // len_embed1, 1))
-        remaining_rows = len_embed2 % len_embed1
+        embedding1 = np.tile(embedding1, (num_row_embed2 // num_row_embed1, 1))
+        remaining_rows = num_row_embed2 % num_row_embed1
         if remaining_rows > 0:
-            embedding1 = np.concatenate([embedding1, embedding1[:remaining_rows, :]])
+            embedding1 = np.vstack((embedding1, embedding1[:remaining_rows, :]))
+
+    if num_col_embed1 > num_col_embed2:
+        # embedding2 = np.vstack(embedding2, embedding2[:(len_embed1-len_embed2), :])
+        embedding2 = np.tile(embedding2, (1, num_col_embed1 // num_col_embed2))
+        remaining_cols = num_col_embed1 % num_col_embed2
+        if remaining_cols > 0:
+            embedding2 = np.hstack((embedding2, embedding2[:, :remaining_cols]))
+    if num_col_embed1 < num_col_embed2:
+        # embedding2 = np.vstack(embedding2, embedding2[:(len_embed1-len_embed2), :])
+        embedding1 = np.tile(embedding1, (1, num_col_embed2 // num_col_embed1))
+        remaining_cols = num_col_embed2 % num_col_embed1
+        if remaining_cols > 0:
+            embedding1 = np.hstack((embedding1, embedding1[:, :remaining_cols]))
     assert len(embedding1) == len(embedding2), f"Your embedding1 shape is {len(embedding1)}. Your embedding2 shape is {len(embedding2)}"
+    assert embedding1.shape[1] == embedding2.shape[1],  f"Your embedding1 num_col is {num_col_embed1}. Your embedding2 num_col is {num_col_embed2}"
     return embedding1, embedding2
 
 def feature_alignment_clip(embedding1, embedding2):
     
-    len_embed1 = len(embedding1)
-    len_embed2 = len(embedding2)
-    if len_embed1 >  len_embed2:
-        embedding1 = embedding1[:len_embed2, :]
+    num_row_embed1 = embedding1.shape[0]
+    num_row_embed2 = embedding2.shape[0]
+    num_col_embed1 = embedding1.shape[1]
+    num_col_embed2 = embedding2.shape[1]
+    if num_row_embed1 >  num_row_embed2:
+        embedding1 = embedding1[:num_row_embed2, :]
         
-    if len_embed1 < len_embed2:
-        embedding2 = embedding2[:len_embed1, :]
+    if num_row_embed1 < num_row_embed2:
+        embedding2 = embedding2[:num_row_embed1, :]
     
-    assert len(embedding1) == len(embedding2), f"Your embedding1 shape is {len(embedding1)}. Your embedding2 shape is {len(embedding2)}"
+    if num_col_embed1 > num_col_embed2:
+        embedding1 = embedding1[:, :num_col_embed2]
     
+    if num_col_embed1 < num_col_embed2:
+        embedding2 = embedding2[:, :num_col_embed1]
+    assert len(embedding1) == len(embedding2), f"Your embedding1 num_row is {len(embedding1)}. Your embedding2 num_row is {len(embedding2)}"
+    assert embedding1.shape[1] == embedding2.shape[1],  f"Your embedding1 num_col is {num_col_embed1}. Your embedding2 num_col is {num_col_embed2}"
     return embedding1, embedding2
         
 
@@ -81,6 +104,7 @@ def cosine_sim(embedding1, embedding2, feature_alignment):
     # norm2 = np.linalg.norm(embedding2)
     # similarity = dot_product / (norm1 * norm2)
     # Flatten the matrices
+    print(f"embedding1 aligned shape: {embedding1_align.shape} \n embedding2 aligned shape: {embedding2_align.shape}")
     flat_matrix1 = embedding1_align.flatten()
     flat_matrix2 = embedding2_align.flatten()
 

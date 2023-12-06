@@ -11,6 +11,12 @@ git commit -m "commit-message"
 git push
 ```
 
+### Update 12/6
+* MFCCs work better than all baseline features
+* VGGish is (num_windows, 128), baseline features is (num_windows, num_features). The num_windows don't exactly align yet. Need to either clip or align. 
+* [dim-sim](https://jongpillee.github.io/multi-dim-music-sim/) evaluation dataset. 
+
+
 ### Update 12/5
 
 TOFIX:

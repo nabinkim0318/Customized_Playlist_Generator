@@ -8,9 +8,10 @@ import config
 SEED_SONG = config.SEED_SONG
 FEATURE_ALIGNMENT = config.FEATURE_ALIGNMENT
 BLOCK_SIZE = config.BLOCK_SIZE
+SAMPLING_RATE = config.SAMPLING_RATE
 
 def get_audio_features(audio_file, block_size = BLOCK_SIZE, hop_size = None):
-    y, sr = librosa.load(audio_file, sr=None, mono=True)
+    y, sr = librosa.load(audio_file, sr=SAMPLING_RATE, mono=True)
 
     # Set default hop_size if not specified
     if hop_size is None:
@@ -19,44 +20,63 @@ def get_audio_features(audio_file, block_size = BLOCK_SIZE, hop_size = None):
     rms = librosa.feature.rms(y=y, frame_length=block_size, hop_length=hop_size)[0]
 
     spectral_centroid = librosa.feature.spectral_centroid(y=y, sr=sr, n_fft=block_size, hop_length=hop_size)[0]
-
+    
     spectral_rolloff = librosa.feature.spectral_rolloff(y=y, sr=sr, n_fft=block_size, hop_length=hop_size)[0]
 
     spectral_flux = librosa.onset.onset_strength(y=y, sr=sr, hop_length=hop_size)
 
-    spectral_crest = np.max(librosa.feature.spectral_centroid(y=y, sr=sr, n_fft=block_size, hop_length=hop_size), axis=1) / np.sum(librosa.feature.spectral_centroid(y=y, sr=sr, n_fft=block_size, hop_length=hop_size), axis=1)
-
+    # spectral_crest = np.max(spectral_centroid) / np.sum(spectral_centroid)
+    # print(spectral_crest)
+    spectral_flatness = librosa.feature.spectral_flatness(y=y, n_fft=block_size, hop_length=hop_size)[0]
     zero_crossings_rate = librosa.feature.zero_crossing_rate(y, frame_length=block_size, hop_length=hop_size)[0]
 
     mfccs = librosa.feature.mfcc(y=y, sr=sr, n_mfcc=13, n_fft=block_size, hop_length=hop_size)
 
-    min_len = min(len(rms), len(spectral_centroid), len(spectral_rolloff), len(spectral_flux), len(zero_crossings_rate), len(mfccs[0]))
+    #spectral_crest = np.full_like(rms, spectral_crest)
 
-    spectral_crest = np.full_like(rms, spectral_crest)
-
-    feature_matrix = np.vstack([rms, spectral_centroid, spectral_rolloff, spectral_flux, spectral_crest, zero_crossings_rate, mfccs])
-
+    feature_matrix = np.vstack([rms, spectral_centroid, spectral_rolloff, spectral_flux, spectral_flatness, zero_crossings_rate, mfccs])
+    feature_matrix_0 = np.sum(feature_matrix,axis = 1)
+    print(f"File name: {audio_file} \n Sum over columns: {feature_matrix_0}")
     return feature_matrix
 
-def baseline_similarity_rank(audio_path):
+
+def get_only_mfccs(audio_file, block_size = BLOCK_SIZE, hop_size = None):
+
+    y, sr = librosa.load(audio_file, sr=44100, mono=True)
+
+    # Set default hop_size if not specified
+    if hop_size is None:
+        hop_size = block_size // 2
+
+    mfccs = librosa.feature.mfcc(y=y, sr=sr, n_mfcc=13, n_fft=block_size, hop_length=hop_size)
+    
+    return mfccs
+
+def baseline_similarity_rank(audio_path, only_mfccs=False):
     audios = [f for f in os.listdir(audio_path) if f.endswith(".wav")]
     file_feature_dict = {}
     for f in audios:
         print(f)
-        feature = get_audio_features(audio_file=audio_path + f)
+        if only_mfccs:
+            feature = get_only_mfccs(audio_file=audio_path+f)
+        else:
+            feature = get_audio_features(audio_file=audio_path + f)
+        
         file_feature_dict[f] = feature
     
     trainData_feature_df = pd.DataFrame({"name": file_feature_dict.keys(), "feature": file_feature_dict.values()})
     similarities = []
     
     song_index = trainData_feature_df[trainData_feature_df["name"] == SEED_SONG].index.tolist()
-    seed_embedding = trainData_feature_df.loc[song_index[0], "feature"]
+    seed_feature = trainData_feature_df.loc[song_index[0], "feature"]
     for i in range(len(trainData_feature_df)):
-        current_embedding = trainData_feature_df.loc[i, "feature"]
-        assert seed_embedding.dtype == current_embedding.dtype, f"SEED dtype:{seed_embedding.dtype} CURRENT dypte: {current_embedding.dtype} "
-        sim = similarity.cosine_sim(seed_embedding, current_embedding, FEATURE_ALIGNMENT)
+        current_feature = trainData_feature_df.loc[i, "feature"]
+        assert seed_feature.dtype == current_feature.dtype, f"SEED dtype:{seed_feature.dtype} CURRENT dypte: {current_feature.dtype} "
+        name = trainData_feature_df.loc[i, "name"]
+        print(f"Name of file with similarity issue: {name}")
+        sim = similarity.cosine_sim(seed_feature, current_feature, FEATURE_ALIGNMENT)
         similarities += [sim]
-        print(sim)
+
     
     trainData_feature_df["similarities"] = similarities
     print(trainData_feature_df)
@@ -65,4 +85,4 @@ def baseline_similarity_rank(audio_path):
 
 
 if __name__ == "__main__":
-    baseline_similarity_rank("./trainData/")
+    baseline_similarity_rank("./trainData/").to_csv("features_test.csv")
