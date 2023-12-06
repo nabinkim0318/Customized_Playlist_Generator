@@ -2,15 +2,19 @@ import numpy as np
 import pandas as pd
 import librosa
 import vggish_main
-import soundfile as sf
 import similarity
+import baseline_main
+import baseline+vggish
 
-def similarity(folder_path, method):
-    similarity_matrix = []    
-    if method == "vggish":
-        similarity_rank = vggish_main.vggish_similarity_rank(audio_path=folder_path)
+def similarity(folder_path, method=[]):
+    d = dict()
+    dict_value_matrix = []
+    for m in method:
+        if m == "vggish":
+            dict_value_matrix
+        
+    
     
     return similarity_matrix
 
 
-    
