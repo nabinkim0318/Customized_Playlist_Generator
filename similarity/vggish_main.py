@@ -24,11 +24,11 @@ def extract_vggish(vgg, x, sr, postprocess=False):
     return embedding, str_process
 
 
-def vggish_similarity_rank(audio_path):
+def vggish_similarity_rank(audio_path, vgg):
 
     audios = [f for f in os.listdir(audio_path) if f.endswith(".wav")]
     file_embed_dict = {}
-    vgg = vggish_embeddings.CreateVGGishNetwork(0.96)
+    # vgg = vggish_embeddings.CreateVGGishNetwork(0.96)
     for f in audios:
         print(f)
         x, sr = librosa.load(audio_path + f, sr = SAMPLING_RATE, mono=True)

@@ -12,7 +12,7 @@ SEED_SONG = config.SEED_SONG
 FEATURE_ALIGNMENT = config.FEATURE_ALIGNMENT
 BLOCK_SIZE = config.BLOCK_SIZE
 SAMPLING_RATE = config.SAMPLING_RATE
-VGGISH_WINDOW = 0.25
+VGGISH_WINDOW = config.VGGISH_WINDOW
 def get_combined_features(audio_file, vggmodel, only_mfccs=False, postprocess=False):
 
     BLOCK_SIZE = int(VGGISH_WINDOW*SAMPLING_RATE)
@@ -33,10 +33,10 @@ def get_combined_features(audio_file, vggmodel, only_mfccs=False, postprocess=Fa
     print(comb_features.shape)
     return comb_features
 
-def combine_feature_similarity_rank(audio_path, only_mfccs=False):
+def combine_feature_similarity_rank(audio_path, vgg, only_mfccs=False):
     audios = [f for f in os.listdir(audio_path) if f.endswith(".wav")]
     file_feature_dict = {}
-    vgg = vggish_embeddings.CreateVGGishNetwork(VGGISH_WINDOW)
+    # vgg = vggish_embeddings.CreateVGGishNetwork(VGGISH_WINDOW)
     for f in audios:
         print(f)
         comb_features = get_combined_features(audio_file=audio_path + f, only_mfccs=only_mfccs, vggmodel=vgg)
