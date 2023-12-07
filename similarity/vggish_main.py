@@ -24,7 +24,7 @@ def extract_vggish(vgg, x, sr, postprocess=False):
     return embedding, str_process
 
 
-def vggish_similarity_rank(audio_path, vgg):
+def vggish_similarity_rank(audio_path, vgg, seed_song):
 
     audios = [f for f in os.listdir(audio_path) if f.endswith(".wav")]
     file_embed_dict = {}
@@ -40,7 +40,7 @@ def vggish_similarity_rank(audio_path, vgg):
     trainData_embedding_df = pd.DataFrame({"name": file_embed_dict.keys(), "embedding": file_embed_dict.values()})
     similarities = []
 
-    song_index = trainData_embedding_df[trainData_embedding_df["name"] == SEED_SONG].index.tolist()
+    song_index = trainData_embedding_df[trainData_embedding_df["name"] == seed_song].index.tolist()
     seed_embedding = trainData_embedding_df.loc[song_index[0], "embedding"]
     for i in range(len(trainData_embedding_df)):
         current_embedding = trainData_embedding_df.loc[i, "embedding"]

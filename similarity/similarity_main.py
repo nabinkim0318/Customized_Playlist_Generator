@@ -15,7 +15,7 @@ folder_path = config.FOLDER_PATH
 all_methods = config.ALL_METHODS
 vggish_window = config.VGGISH_WINDOW
 
-def similarity(folder_path=folder_path, method:list=all_methods) -> dict:
+def similarity(seed_song, folder_path=folder_path, method:list=all_methods) -> dict:
 
     dict_value_matrix = []
     audios = [f for f in os.listdir(folder_path) if f.endswith(".wav")]
@@ -26,19 +26,19 @@ def similarity(folder_path=folder_path, method:list=all_methods) -> dict:
         # audio_path = os.path.join(folder_path, f)
 
         if m == "vggish":
-            dict_value_matrix += [vggish_main.vggish_similarity_rank(audio_path=folder_path, vgg=vgg)]
+            dict_value_matrix += [vggish_main.vggish_similarity_rank(audio_path=folder_path, vgg=vgg, seed_song=seed_song)]
             continue
         if m =="baseline_all":
-            dict_value_matrix += [baseline_main.baseline_similarity_rank(audio_path=folder_path, only_mfccs=False)]
+            dict_value_matrix += [baseline_main.baseline_similarity_rank(audio_path=folder_path, seed_song=seed_song, only_mfccs=False)]
             continue
         if m == "baseline_mfccs":
-            dict_value_matrix += [baseline_main.baseline_similarity_rank(audio_path=folder_path, only_mfccs=True)]
+            dict_value_matrix += [baseline_main.baseline_similarity_rank(audio_path=folder_path,seed_song=seed_song, only_mfccs=True)]
             continue
         if m == "combined_all":
-            dict_value_matrix += [baseline_vggish.combine_feature_similarity_rank(audio_path=folder_path, vgg=vgg, only_mfccs=False)]
+            dict_value_matrix += [baseline_vggish.combine_feature_similarity_rank(audio_path=folder_path, vgg=vgg, seed_song=seed_song, only_mfccs=False)]
             continue
         if m == "combined_mfccs":
-            dict_value_matrix += [baseline_vggish.combine_feature_similarity_rank(audio_path=folder_path, vgg=vgg, only_mfccs=True)]
+            dict_value_matrix += [baseline_vggish.combine_feature_similarity_rank(audio_path=folder_path, vgg=vgg, seed_song=seed_song, only_mfccs=True)]
             continue
         else:
             raise ValueError(f"Your method name: {m} is not right. Please check comments in config.py")

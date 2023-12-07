@@ -33,7 +33,7 @@ def get_combined_features(audio_file, vggmodel, only_mfccs=False, postprocess=Fa
     print(comb_features.shape)
     return comb_features
 
-def combine_feature_similarity_rank(audio_path, vgg, only_mfccs=False):
+def combine_feature_similarity_rank(audio_path, vgg, seed_song, only_mfccs=False):
     audios = [f for f in os.listdir(audio_path) if f.endswith(".wav")]
     file_feature_dict = {}
     # vgg = vggish_embeddings.CreateVGGishNetwork(VGGISH_WINDOW)
@@ -46,7 +46,7 @@ def combine_feature_similarity_rank(audio_path, vgg, only_mfccs=False):
     trainData_feature_df = pd.DataFrame({"name": file_feature_dict.keys(), "feature": file_feature_dict.values()})
     similarities = []
     
-    song_index = trainData_feature_df[trainData_feature_df["name"] == SEED_SONG].index.tolist()
+    song_index = trainData_feature_df[trainData_feature_df["name"] == seed_song].index.tolist()
     seed_feature = trainData_feature_df.loc[song_index[0], "feature"]
     for i in range(len(trainData_feature_df)):
         current_feature = trainData_feature_df.loc[i, "feature"]

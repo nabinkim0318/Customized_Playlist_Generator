@@ -52,7 +52,7 @@ def get_only_mfccs(audio_file, block_size = BLOCK_SIZE, hop_size = None):
     
     return mfccs
 
-def baseline_similarity_rank(audio_path, only_mfccs=False):
+def baseline_similarity_rank(audio_path, seed_song, only_mfccs=False):
     audios = [f for f in os.listdir(audio_path) if f.endswith(".wav")]
     file_feature_dict = {}
     for f in audios:
@@ -67,7 +67,7 @@ def baseline_similarity_rank(audio_path, only_mfccs=False):
     trainData_feature_df = pd.DataFrame({"name": file_feature_dict.keys(), "feature": file_feature_dict.values()})
     similarities = []
     
-    song_index = trainData_feature_df[trainData_feature_df["name"] == SEED_SONG].index.tolist()
+    song_index = trainData_feature_df[trainData_feature_df["name"] == seed_song].index.tolist()
     seed_feature = trainData_feature_df.loc[song_index[0], "feature"]
     for i in range(len(trainData_feature_df)):
         current_feature = trainData_feature_df.loc[i, "feature"]
