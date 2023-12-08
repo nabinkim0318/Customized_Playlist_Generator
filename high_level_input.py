@@ -293,12 +293,13 @@ def move_files():
     all_files = [file for file in os.listdir('./audio/input/random_songs') if os.path.isfile(os.path.join('./audio/input/random_songs', file)) and file.endswith('.mp3')]
     for seed_song in seed_song_list: 
         seed_song = seed_song[:-4]
+        print(seed_song)
         for j in range(10):
             file_to_move = all_files.pop()  # Remove and get the last file from the list
             src = os.path.join(f'./audio/input/random_songs', file_to_move)
-            
+            os.makedirs(f'./audio/input/random_songs/{seed_song}', exist_ok=True)
             dst = os.path.join(f'./audio/input/random_songs/{seed_song}', file_to_move)
-            os.makedirs(dst, exist_ok=True)
+            #os.makedirs(dst, exist_ok=True)
             shutil.move(src, dst)
 
 def random_main():
@@ -306,7 +307,7 @@ def random_main():
     df = add_user_songs_if_not_exists()
     count = 0
     while count < 50:
-        random_id = df['id'].sample(n=1, random_state=np.random.RandomState(42)).values[0]
+        random_id = df['id'].sample(n=1, random_state=np.random.RandomState()).values[0]
         _, url = get_preview_url(random_id)
         result = get_preview_random_audio(df, random_id, url)
         if not result:
@@ -314,9 +315,38 @@ def random_main():
         print(len(os.listdir('random_songs')))
     move_files()
     
+import os
+import shutil
+from pathlib import Path
+
+def copy_wav_files(source_folder, destination_folder):
+
+    # Iterate through each wav file in the source_folder
+    for file_name in os.listdir(source_folder):
+        if file_name.lower().endswith(".wav"):
+            # Construct the paths
+            source_path = os.path.join(source_folder, file_name)
+            destination_path = os.path.join(destination_folder, os.path.splitext(file_name)[0], file_name)
+
+            # Create the subfolder in similarity_based if it doesn't exist
+            subfolder_path = os.path.join(destination_folder, os.path.splitext(file_name)[0])
+            os.mkdir(subfolder_path, parents=True, exist_ok=True)
+
+            # Copy the wav file to the subfolder
+            shutil.copy(source_path, destination_path)
+            print(f"Copied {file_name} to {subfolder_path}")
+
+
+
 
 
 
 if __name__ == "__main__":
-    similarity_based_main()
+    #similarity_based_main()
     #random_main()
+        # Specify the source and destination folders
+    source_folder = "./audio/seed_songs"
+    destination_folder = "./audio/input/similarity_based"
+
+    # Call the function to copy the wav files
+    #copy_wav_files(source_folder, destination_folder)
