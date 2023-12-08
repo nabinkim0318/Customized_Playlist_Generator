@@ -5,7 +5,7 @@ SAMPLING_RATE = 16000
 FOLDER_PATH = "./trainData/"
 ALL_METHODS = ["vggish", "baseline_all", "baseline_mfccs", "combined_all", "combined_mfccs"]
 VGGISH_WINDOW = 0.25
-SEED_SONG_FOLDER = "../test-ipynb/audio"
+SEED_SONG_FOLDER = "./audio"
 TOP_N = 5
 TERM = "long_term"
 

@@ -330,7 +330,7 @@ def copy_wav_files(source_folder, destination_folder):
 
             # Create the subfolder in similarity_based if it doesn't exist
             subfolder_path = os.path.join(destination_folder, os.path.splitext(file_name)[0])
-            os.mkdir(subfolder_path, parents=True, exist_ok=True)
+            os.makedirs(subfolder_path,  exist_ok=True)
 
             # Copy the wav file to the subfolder
             shutil.copy(source_path, destination_path)

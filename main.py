@@ -3,6 +3,7 @@ import sys
 import os
 import subprocess
 import shutil
+import high_level_input
 sys.path.append("./similarity/")
 import config
 import convert
@@ -15,8 +16,17 @@ SEED_SONG_FOLDER = config.SEED_SONG_FOLDER
 ALL_METHODS = config.ALL_METHODS
 TOP_N = config.TOP_N
 
-def playlist_generate(high_level = "similarity", method=ALL_METHODS):
+def playlist_generate(high_level = "evaluation", method=ALL_METHODS):
     
+    if high_level == "similarity":
+        high_level_input.similarity_based_main()
+    if high_level == "random":
+        high_level_input.random_main()
+    if high_level == "evaluation":
+        
+        convert.convert_folder_to_wav("./song_data/")
+        high_level_input.copy_wav_files(source_folder="./song_data/seed_songs/", destination_folder="./song_data/similarity_based")
+        return 
     # first convert all files into wav
     convert.convert_folder_to_wav(SEED_SONG_FOLDER)
     
