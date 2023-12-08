@@ -1,0 +1,126 @@
+,Seed song names,Similarity method,Recommended song
+0,Sia_Unstoppable.wav,vggish,Wild Molly_Casi Todos.mp3
+1,Sia_Unstoppable.wav,vggish,I Plead Irony_Unsung Champions.mp3
+2,Sia_Unstoppable.wav,vggish,Gatillazo_La Familia Unida.mp3
+3,Sia_Unstoppable.wav,vggish,Kyle Craft_Jane Beat the Reaper.mp3
+4,Sia_Unstoppable.wav,vggish,Kyle Craft_Berlin.mp3
+5,Sia_Unstoppable.wav,baseline_all,Gatillazo_La Familia Unida.mp3
+6,Sia_Unstoppable.wav,baseline_all,I Plead Irony_Unsung Champions.mp3
+7,Sia_Unstoppable.wav,baseline_all,Wild Molly_Casi Todos.mp3
+8,Sia_Unstoppable.wav,baseline_all,Act of Sin_Full Moon Rising.mp3
+9,Sia_Unstoppable.wav,baseline_all,Kyle Craft_Jane Beat the Reaper.mp3
+10,Sia_Unstoppable.wav,baseline_mfccs,I Plead Irony_Unsung Champions.mp3
+11,Sia_Unstoppable.wav,baseline_mfccs,Wild Molly_Casi Todos.mp3
+12,Sia_Unstoppable.wav,baseline_mfccs,Kyle Craft_Jane Beat the Reaper.mp3
+13,Sia_Unstoppable.wav,baseline_mfccs,Gatillazo_La Familia Unida.mp3
+14,Sia_Unstoppable.wav,baseline_mfccs,Bun E. Carlos Alax Dezen_I Love You No More (feat. Alex Dezen).mp3
+15,Sia_Unstoppable.wav,combined_all,Gatillazo_La Familia Unida.mp3
+16,Sia_Unstoppable.wav,combined_all,I Plead Irony_Unsung Champions.mp3
+17,Sia_Unstoppable.wav,combined_all,Wild Molly_Casi Todos.mp3
+18,Sia_Unstoppable.wav,combined_all,Act of Sin_Full Moon Rising.mp3
+19,Sia_Unstoppable.wav,combined_all,Kyle Craft_Jane Beat the Reaper.mp3
+20,Sia_Unstoppable.wav,combined_mfccs,I Plead Irony_Unsung Champions.mp3
+21,Sia_Unstoppable.wav,combined_mfccs,Gatillazo_La Familia Unida.mp3
+22,Sia_Unstoppable.wav,combined_mfccs,Kyle Craft_Jane Beat the Reaper.mp3
+23,Sia_Unstoppable.wav,combined_mfccs,Kyle Craft_Berlin.mp3
+24,Sia_Unstoppable.wav,combined_mfccs,Hollis Brown_Run Right to You.mp3
+25,Miguel_Sure Thing.wav,vggish,II Tone_Lifestyles of A Thug Pt. 2.mp3
+26,Miguel_Sure Thing.wav,vggish,II Tone_Watch Yo Step (feat. Mac Montese of Da Crime Click).mp3
+27,Miguel_Sure Thing.wav,vggish,Lucid Mechanism_Little Rhapsody.mp3
+28,Miguel_Sure Thing.wav,vggish,Sly  Reggie_Fair Votes Now.mp3
+29,Miguel_Sure Thing.wav,vggish,Clayton Bush_Stoned.mp3
+30,Miguel_Sure Thing.wav,baseline_all,Colin Hay_Small Town Big Hell.mp3
+31,Miguel_Sure Thing.wav,baseline_all,Ashley Riley_What Does That Say About You.mp3
+32,Miguel_Sure Thing.wav,baseline_all,Clayton Bush_Stoned.mp3
+33,Miguel_Sure Thing.wav,baseline_all,David Starfire_Shakti.mp3
+34,Miguel_Sure Thing.wav,baseline_all,II Tone_Watch Yo Step (feat. Mac Montese of Da Crime Click).mp3
+35,Miguel_Sure Thing.wav,baseline_mfccs,Eric Harper_Even Though....mp3
+36,Miguel_Sure Thing.wav,baseline_mfccs,Gary Valenciano_Alam Ko Na.mp3
+37,Miguel_Sure Thing.wav,baseline_mfccs,II Tone_Watch Yo Step (feat. Mac Montese of Da Crime Click).mp3
+38,Miguel_Sure Thing.wav,baseline_mfccs,Clayton Bush_Stoned.mp3
+39,Miguel_Sure Thing.wav,baseline_mfccs,David Starfire_Shakti.mp3
+40,Miguel_Sure Thing.wav,combined_all,Colin Hay_Small Town Big Hell.mp3
+41,Miguel_Sure Thing.wav,combined_all,Ashley Riley_What Does That Say About You.mp3
+42,Miguel_Sure Thing.wav,combined_all,Lucid Mechanism_Little Rhapsody.mp3
+43,Miguel_Sure Thing.wav,combined_all,II Tone_Lifestyles of A Thug Pt. 2.mp3
+44,Miguel_Sure Thing.wav,combined_all,David Starfire_Shakti.mp3
+45,Miguel_Sure Thing.wav,combined_mfccs,Eric Harper_Even Though....mp3
+46,Miguel_Sure Thing.wav,combined_mfccs,Gary Valenciano_Alam Ko Na.mp3
+47,Miguel_Sure Thing.wav,combined_mfccs,Clayton Bush_Stoned.mp3
+48,Miguel_Sure Thing.wav,combined_mfccs,II Tone_Watch Yo Step (feat. Mac Montese of Da Crime Click).mp3
+49,Miguel_Sure Thing.wav,combined_mfccs,David Starfire_Shakti.mp3
+50,Rachael Yamagata_Be Be Your Love.wav,vggish,Gretchen Wilson_Homewrecker.mp3
+51,Rachael Yamagata_Be Be Your Love.wav,vggish,Scotty Torgerson_Grandmas Advice.mp3
+52,Rachael Yamagata_Be Be Your Love.wav,vggish,Die Flippers_Nur von einem sollst du trumen.mp3
+53,Rachael Yamagata_Be Be Your Love.wav,vggish,John Popper Todd Wolfe_Tumblin Down.mp3
+54,Rachael Yamagata_Be Be Your Love.wav,vggish,Lost on Purpose_Friends.mp3
+55,Rachael Yamagata_Be Be Your Love.wav,baseline_all,John Popper Todd Wolfe_Tumblin Down.mp3
+56,Rachael Yamagata_Be Be Your Love.wav,baseline_all,Heart_Vainglorious.mp3
+57,Rachael Yamagata_Be Be Your Love.wav,baseline_all,Scotty Torgerson_Grandmas Advice.mp3
+58,Rachael Yamagata_Be Be Your Love.wav,baseline_all,Die Flippers_Nur von einem sollst du trumen.mp3
+59,Rachael Yamagata_Be Be Your Love.wav,baseline_all,Gretchen Wilson_Homewrecker.mp3
+60,Rachael Yamagata_Be Be Your Love.wav,baseline_mfccs,Scotty Torgerson_Grandmas Advice.mp3
+61,Rachael Yamagata_Be Be Your Love.wav,baseline_mfccs,Gretchen Wilson_Homewrecker.mp3
+62,Rachael Yamagata_Be Be Your Love.wav,baseline_mfccs,John Popper Todd Wolfe_Tumblin Down.mp3
+63,Rachael Yamagata_Be Be Your Love.wav,baseline_mfccs,Lost on Purpose_Friends.mp3
+64,Rachael Yamagata_Be Be Your Love.wav,baseline_mfccs,Sonny Landreth The Dixie Cups_Got To Get You Under My Tree (feat. The DixieCups).mp3
+65,Rachael Yamagata_Be Be Your Love.wav,combined_all,Heart_Vainglorious.mp3
+66,Rachael Yamagata_Be Be Your Love.wav,combined_all,John Popper Todd Wolfe_Tumblin Down.mp3
+67,Rachael Yamagata_Be Be Your Love.wav,combined_all,Die Flippers_Nur von einem sollst du trumen.mp3
+68,Rachael Yamagata_Be Be Your Love.wav,combined_all,Scotty Torgerson_Grandmas Advice.mp3
+69,Rachael Yamagata_Be Be Your Love.wav,combined_all,Gretchen Wilson_Homewrecker.mp3
+70,Rachael Yamagata_Be Be Your Love.wav,combined_mfccs,Scotty Torgerson_Grandmas Advice.mp3
+71,Rachael Yamagata_Be Be Your Love.wav,combined_mfccs,Gretchen Wilson_Homewrecker.mp3
+72,Rachael Yamagata_Be Be Your Love.wav,combined_mfccs,Sonny Landreth The Dixie Cups_Got To Get You Under My Tree (feat. The DixieCups).mp3
+73,Rachael Yamagata_Be Be Your Love.wav,combined_mfccs,John Popper Todd Wolfe_Tumblin Down.mp3
+74,Rachael Yamagata_Be Be Your Love.wav,combined_mfccs,Die Flippers_Nur von einem sollst du trumen.mp3
+75,Hong Kong Express_Hong Kong 2046.wav,vggish,Montral Guitare Trio_Le Renard.mp3
+76,Hong Kong Express_Hong Kong 2046.wav,vggish,Bolero Soul Gutierrez Brothers_The Vineyard.mp3
+77,Hong Kong Express_Hong Kong 2046.wav,vggish,Jacob Karlzon_Inner Hills.mp3
+78,Hong Kong Express_Hong Kong 2046.wav,vggish,Future 3_August.mp3
+79,Hong Kong Express_Hong Kong 2046.wav,vggish,Ormonde_Threshold.mp3
+80,Hong Kong Express_Hong Kong 2046.wav,baseline_all,Stormzy Deepee Inch K9 Littlez Reeko Sleeks Swift_Not That Deep (feat. Deepee Swift Sleeks Inch Littlez Reeko K9) - Section Remix.mp3
+81,Hong Kong Express_Hong Kong 2046.wav,baseline_all,Future 3_August.mp3
+82,Hong Kong Express_Hong Kong 2046.wav,baseline_all,Bolero Soul Gutierrez Brothers_The Vineyard.mp3
+83,Hong Kong Express_Hong Kong 2046.wav,baseline_all,Montral Guitare Trio_Le Renard.mp3
+84,Hong Kong Express_Hong Kong 2046.wav,baseline_all,Syndone_Penelope.mp3
+85,Hong Kong Express_Hong Kong 2046.wav,baseline_mfccs,Montral Guitare Trio_Le Renard.mp3
+86,Hong Kong Express_Hong Kong 2046.wav,baseline_mfccs,Ormonde_Threshold.mp3
+87,Hong Kong Express_Hong Kong 2046.wav,baseline_mfccs,Bolero Soul Gutierrez Brothers_The Vineyard.mp3
+88,Hong Kong Express_Hong Kong 2046.wav,baseline_mfccs,Meklit_In Love with Love.mp3
+89,Hong Kong Express_Hong Kong 2046.wav,baseline_mfccs,Jacob Karlzon_Inner Hills.mp3
+90,Hong Kong Express_Hong Kong 2046.wav,combined_all,Stormzy Deepee Inch K9 Littlez Reeko Sleeks Swift_Not That Deep (feat. Deepee Swift Sleeks Inch Littlez Reeko K9) - Section Remix.mp3
+91,Hong Kong Express_Hong Kong 2046.wav,combined_all,Bolero Soul Gutierrez Brothers_The Vineyard.mp3
+92,Hong Kong Express_Hong Kong 2046.wav,combined_all,Future 3_August.mp3
+93,Hong Kong Express_Hong Kong 2046.wav,combined_all,Montral Guitare Trio_Le Renard.mp3
+94,Hong Kong Express_Hong Kong 2046.wav,combined_all,StoLyette_Lubymaya.mp3
+95,Hong Kong Express_Hong Kong 2046.wav,combined_mfccs,Syndone_Penelope.mp3
+96,Hong Kong Express_Hong Kong 2046.wav,combined_mfccs,Bolero Soul Gutierrez Brothers_The Vineyard.mp3
+97,Hong Kong Express_Hong Kong 2046.wav,combined_mfccs,Montral Guitare Trio_Le Renard.mp3
+98,Hong Kong Express_Hong Kong 2046.wav,combined_mfccs,Ormonde_Threshold.mp3
+99,Hong Kong Express_Hong Kong 2046.wav,combined_mfccs,Future 3_August.mp3
+100,Francis Dhomont_Marine.wav,vggish,Martin Rev_Marvel.mp3
+101,Francis Dhomont_Marine.wav,vggish,Danny Elfman_Revenge.mp3
+102,Francis Dhomont_Marine.wav,vggish,Midnight Configuration_Kingdom Come.mp3
+103,Francis Dhomont_Marine.wav,vggish,Roger Davy_Crazy Flute and Happy Guitar.mp3
+104,Francis Dhomont_Marine.wav,vggish,The Chinkees_Can You Get Me Out Of Here.mp3
+105,Francis Dhomont_Marine.wav,baseline_all,Certain General_Holiday of Love.mp3
+106,Francis Dhomont_Marine.wav,baseline_all,Midnight Configuration_Kingdom Come.mp3
+107,Francis Dhomont_Marine.wav,baseline_all,The Chinkees_Can You Get Me Out Of Here.mp3
+108,Francis Dhomont_Marine.wav,baseline_all,Lee Bartley_You Satisfy The Need.mp3
+109,Francis Dhomont_Marine.wav,baseline_all,Ugly Casanova_Parasites.mp3
+110,Francis Dhomont_Marine.wav,baseline_mfccs,Martin Rev_Marvel.mp3
+111,Francis Dhomont_Marine.wav,baseline_mfccs,Galahad_Hindsight 1 - Piano and Clarinet.mp3
+112,Francis Dhomont_Marine.wav,baseline_mfccs,Ugly Casanova_Parasites.mp3
+113,Francis Dhomont_Marine.wav,baseline_mfccs,Lee Bartley_You Satisfy The Need.mp3
+114,Francis Dhomont_Marine.wav,baseline_mfccs,Danny Elfman_Revenge.mp3
+115,Francis Dhomont_Marine.wav,combined_all,Certain General_Holiday of Love.mp3
+116,Francis Dhomont_Marine.wav,combined_all,Midnight Configuration_Kingdom Come.mp3
+117,Francis Dhomont_Marine.wav,combined_all,Lee Bartley_You Satisfy The Need.mp3
+118,Francis Dhomont_Marine.wav,combined_all,Ugly Casanova_Parasites.mp3
+119,Francis Dhomont_Marine.wav,combined_all,The Chinkees_Can You Get Me Out Of Here.mp3
+120,Francis Dhomont_Marine.wav,combined_mfccs,Martin Rev_Marvel.mp3
+121,Francis Dhomont_Marine.wav,combined_mfccs,Ugly Casanova_Parasites.mp3
+122,Francis Dhomont_Marine.wav,combined_mfccs,Lee Bartley_You Satisfy The Need.mp3
+123,Francis Dhomont_Marine.wav,combined_mfccs,Galahad_Hindsight 1 - Piano and Clarinet.mp3
+124,Francis Dhomont_Marine.wav,combined_mfccs,Certain General_Holiday of Love.mp3

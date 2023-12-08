@@ -16,7 +16,7 @@ SEED_SONG_FOLDER = config.SEED_SONG_FOLDER
 ALL_METHODS = config.ALL_METHODS
 TOP_N = config.TOP_N
 
-def playlist_generate(high_level = "evaluation", method=ALL_METHODS):
+def playlist_generate(high_level = "evaluation_random", method=ALL_METHODS):
         # first convert all files into wav
     convert.convert_folder_to_wav(SEED_SONG_FOLDER)
     
@@ -33,11 +33,17 @@ def playlist_generate(high_level = "evaluation", method=ALL_METHODS):
     if high_level == "random":
         high_level_input.random_main()
         result_report = get_playlist_report_reorganize_folders(method=method, vgg=vgg, high_level=high_level+"_songs")
-    if high_level == "evaluation":
+    if high_level.split("_")[0] == "evaluation":
         
-        convert.convert_folder_to_wav("./song_data/")
-        high_level_input.copy_wav_files(source_folder="./song_data/seed_songs/", destination_folder="./song_data/similarity_based")
-        return 
+        convert.convert_folder_to_wav("../song_data/")
+        if high_level.split("_")[1] == "similarity":
+            high_level_input.copy_wav_files(source_folder="../song_data/seed_songs/", destination_folder="../song_data/similarity_based")
+            result_report = get_playlist_report_reorganize_folders(method=method, vgg=vgg, high_level="similarity_based", seed_song_folder="song_data")
+            result_report.to_csv("../eval/similarity_based_luhee_top5.csv")
+        if high_level.split("_")[1] == "random":
+            high_level_input.copy_wav_files(source_folder="../song_data/seed_songs/", destination_folder="../song_data/random_songs")
+            result_report = get_playlist_report_reorganize_folders(method=method, vgg=vgg, high_level="random_songs", seed_song_folder="song_data")
+            result_report.to_csv("../eval/random_songs_luhee_top5.csv")
 
     # iterate through each song
 
@@ -55,12 +61,16 @@ def playlist_generate(high_level = "evaluation", method=ALL_METHODS):
 
     return 
 
-def get_playlist_report_reorganize_folders(method, vgg, high_level="similarity_based"):
+def get_playlist_report_reorganize_folders(method, vgg, high_level="similarity_based", seed_song_folder=SEED_SONG_FOLDER):
     seed_song_names_col = []
     folder_names = []
     methods_col = []
     output_song_col = []
-    song_subset_folder = os.path.join("..", SEED_SONG_FOLDER, high_level)
+    if seed_song_folder == "song_data":
+        song_subset_folder = os.path.join("..", seed_song_folder, high_level)
+    else:
+        song_subset_folder = os.path.join("..", SEED_SONG_FOLDER, "input",high_level)
+    
     # looking into each seed song subfolder
 
     for drctry in tqdm([entry.name for entry in os.scandir(song_subset_folder) if entry.is_dir()]):
@@ -77,7 +87,11 @@ def get_playlist_report_reorganize_folders(method, vgg, high_level="similarity_b
         
         for m, sim_matrix in tqdm(sim_dict.items()):
             methods_col += [m] * TOP_N
-            output_dir = os.path.join("..",SEED_SONG_FOLDER, "output", m, drctry)
+            if seed_song_folder == "song_data":
+                output_dir = os.path.join("..", seed_song_folder, "output", m, drctry)
+            else:
+                output_dir = os.path.join("..", SEED_SONG_FOLDER, "output",m, drctry)
+            # output_dir = os.path.join("..",SEED_SONG_FOLDER, "output", m, drctry)
             if not os.path.exists(output_dir):
                 os.makedirs(output_dir)
             output_songs = list(sim_matrix["name"][1:TOP_N+1])
