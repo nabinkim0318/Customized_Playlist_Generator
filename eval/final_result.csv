@@ -1,0 +1,4 @@
+﻿method,novelty,diversity,top_N_agreement_score
+baseline_mfccs,1,4.361752594,1.400228793
+vggish,1,4.334990577,1.447533261
+combined_mfccs,1,4.390158703,1.343003408

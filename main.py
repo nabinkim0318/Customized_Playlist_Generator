@@ -16,7 +16,7 @@ SEED_SONG_FOLDER = config.SEED_SONG_FOLDER
 ALL_METHODS = config.ALL_METHODS
 TOP_N = config.TOP_N
 
-def playlist_generate(high_level = "evaluation_random", method=ALL_METHODS):
+def playlist_generate(high_level = "similarity", method=ALL_METHODS):
         # first convert all files into wav
     convert.convert_folder_to_wav(SEED_SONG_FOLDER)
     
@@ -48,9 +48,6 @@ def playlist_generate(high_level = "evaluation_random", method=ALL_METHODS):
     # iterate through each song
 
 
-
-    print("hi")           
-                
                 
                 
             

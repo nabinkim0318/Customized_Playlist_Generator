@@ -9,7 +9,7 @@ import subprocess
 # for Novelty Metric
 # assumes that the song name or artist name does not contain the underscore (_)
 def filtering_artist_names(df):
-    print(df)
+    #print(df)
     user_song_names = list(df['Seed_song_names'])
     predicted_song_names = list(df['All_songs'])
 
@@ -29,9 +29,9 @@ def find_key(df, sample):
     artist_condition, name_condition = sample.split('_')
     name_condition = name_condition.replace('.mp3', '')
     #artist_condition, name_condition
-    print(f"artist_name {artist_condition}, name_condition{name_condition}")
+    #print(f"artist_name {artist_condition}, name_condition{name_condition}")
     found_row = df[df['artists'].apply(lambda x: any(artist in x for artist in artist_condition.split())) & (df['name'] == name_condition)]
-    print(found_row)
+    #print(found_row)
     found_key = found_row['key'].values[0]
     return found_key
 
@@ -42,7 +42,7 @@ def find_recommended_keys(df, concat_df):
     i=0
     for song in recomended_song_list:
         
-        print(i)
+        #print(i)
         i+=1
         found_key = find_key(concat_df, song)
         recommended_keys.append(found_key)
@@ -69,17 +69,20 @@ def topN_agreement(prediction_df, gt_rank_df, alpha = 0.5 ** (1/3)):
     
     topN_scores = []
     for seed_song in seed_song_names:
+        print(seed_song)
         sorted_prediction = prediction_df[prediction_df['Seed_song_names'] == seed_song]
+
         sorted_prediction = sorted_prediction.set_index('All_songs')['Rank'].to_dict()
-        
+        print(sorted_prediction)
         sorted_gt = gt_rank_df[gt_rank_df['Seed_song_names'] == seed_song]
+        print(f"SORTED GT: {sorted_gt}")
         sorted_gt = sorted_gt.set_index('All_songs')['Rank'].to_dict()
-        
+        print(f"SORTED GT: {sorted_gt}")
         result = 0
         for algo_song, algo_rank in sorted_prediction.items():
             alpha_for_c = alpha ** 2  
             alpha_c = alpha_for_c ** (algo_rank - 1)   
-            
+            print(f"Sorted GT: {sorted_gt.keys()}")
             gt_rank = sorted_gt[algo_song]
             alpha_r = alpha ** (gt_rank - 1)
             result += alpha_r * alpha_c 
@@ -94,7 +97,7 @@ def topN_agreement(prediction_df, gt_rank_df, alpha = 0.5 ** (1/3)):
 
 
 # Run three metrics for the generated playlist
-def main_metric(prediction_df, gt_df):
+def main_metric(prediction_df, gt_df, counter):
     # predict_df = pd.read_csv('prediction.csv')
     # gt_df = pd.read_csv('ground_truth.csv')  
     
@@ -104,20 +107,25 @@ def main_metric(prediction_df, gt_df):
     print(f"Novelty Score: {novelty}")
     
     # Entropy metrics 
-    counter = 0
+
     if counter == 0:
         working_directory = "../"
         os.chdir(working_directory)
         subprocess.run(["python3", "high_level_input.py"])
-        counter += 1
+        
+    else:
+        working_directory="./"
+        os.chdir(working_directory)
+        subprocess.run(["python3", "high_level_input.py"])
+    print(os.getcwd())
     concat_df = high_level_input.add_user_songs_if_not_exists()
     print(len(concat_df))
     recommended_keys = find_recommended_keys(prediction_df, concat_df)
     entropy = calculate_diversity(recommended_keys)
     print(f"Entropy: {entropy}")
     
-    # topN agreement Metric     
-    topN_score = topN_agreement(prediction_df, gt_df)
+    # # topN agreement Metric     
+    # topN_score = topN_agreement(prediction_df, gt_df)
     
 # if __name__ == "__main__":
     
