@@ -24,6 +24,7 @@ TERM = config.TERM
 
 
 def add_user_songs_if_not_exists(term=TERM):
+
     df1 = pd.read_csv(f'./user_top_items/top_tracks_{term}.csv')
     df2 = pd.read_csv("tracks_features.csv")
     concat_df = pd.concat([df1, df2], axis=0)

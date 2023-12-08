@@ -1,5 +1,10 @@
 import numpy as np
 import pandas as pd
+import sys
+sys.path.append("..")
+import high_level_input
+import os
+import subprocess
 
 # for Novelty Metric
 # assumes that the song name or artist name does not contain the underscore (_)
@@ -24,24 +29,37 @@ def find_key(df, sample):
     artist_condition, name_condition = sample.split('_')
     name_condition = name_condition.replace('.mp3', '')
     #artist_condition, name_condition
-    found_row = df[df['artists'].apply(lambda x: artist_condition in x) & (df['name'] == name_condition)]
+    print(f"artist_name {artist_condition}, name_condition{name_condition}")
+    found_row = df[df['artists'].apply(lambda x: any(artist in x for artist in artist_condition.split())) & (df['name'] == name_condition)]
+    print(found_row)
     found_key = found_row['key'].values[0]
     return found_key
 
 
-def find_recommended_keys(df):
+def find_recommended_keys(df, concat_df):
     recommended_keys = []
     recomended_song_list = list(df['All_songs'].values)
+    i=0
     for song in recomended_song_list:
-        found_key = find_key(df, song)
+        
+        print(i)
+        i+=1
+        found_key = find_key(concat_df, song)
         recommended_keys.append(found_key)
     return recommended_keys
 
 
 # Diversity Metric
 def calculate_diversity(recommended_keys):
-    genre_histogram = np.bincount(recommended_keys)
-    entropy = -np.sum((genre_histogram / len(recommended_keys)) * np.log(genre_histogram / len(recommended_keys)))
+    total_occurrences = sum(recommended_keys)
+    key_probabilities = np.array(recommended_keys) / total_occurrences
+    probabilities = key_probabilities / np.sum(key_probabilities)
+     # Exclude zero probabilities to avoid NaN in log
+    non_zero_probabilities = probabilities[probabilities > 0]
+    
+    # Calculate entropy using the formula
+    entropy = -np.sum(non_zero_probabilities * np.log2(non_zero_probabilities))
+    
     return entropy
 
 
@@ -55,7 +73,7 @@ def topN_agreement(prediction_df, gt_rank_df, alpha = 0.5 ** (1/3)):
         sorted_prediction = sorted_prediction.set_index('All_songs')['Rank'].to_dict()
         
         sorted_gt = gt_rank_df[gt_rank_df['Seed_song_names'] == seed_song]
-        sorted_gt = sorted_gt.set_index('Recommended_song_names')['Rank'].to_dict()
+        sorted_gt = sorted_gt.set_index('All_songs')['Rank'].to_dict()
         
         result = 0
         for algo_song, algo_rank in sorted_prediction.items():
@@ -86,7 +104,15 @@ def main_metric(prediction_df, gt_df):
     print(f"Novelty Score: {novelty}")
     
     # Entropy metrics 
-    recommended_keys = find_recommended_keys(prediction_df)
+    counter = 0
+    if counter == 0:
+        working_directory = "../"
+        os.chdir(working_directory)
+        subprocess.run(["python3", "high_level_input.py"])
+        counter += 1
+    concat_df = high_level_input.add_user_songs_if_not_exists()
+    print(len(concat_df))
+    recommended_keys = find_recommended_keys(prediction_df, concat_df)
     entropy = calculate_diversity(recommended_keys)
     print(f"Entropy: {entropy}")
     
