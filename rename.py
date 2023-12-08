@@ -1,10 +1,19 @@
 import os
 import csv
+import chardet
+
+def detect_encoding(file_path):
+    with open(file_path, 'rb') as rawdata:
+        result = chardet.detect(rawdata.read(10000))
+    return result['encoding']
 
 def rename_files_with_mapping(folder_path, csv_file_path):
+    # Detect the encoding of the CSV file
+    csv_encoding = detect_encoding(csv_file_path)
+
     # Read the CSV file and create a mapping dictionary
     mapping = {}
-    with open(csv_file_path, 'r') as csv_file:
+    with open(csv_file_path, 'r', encoding=csv_encoding) as csv_file:
         reader = csv.DictReader(csv_file)
         for row in reader:
             mapping[row['old']] = row['new']
@@ -25,6 +34,8 @@ def rename_files_with_mapping(folder_path, csv_file_path):
                     # Rename the file
                     os.rename(original_path, new_path)
                     print(f"Renamed: {file} to {new_file_name}")
+
+
 
 # Example usage
 folder_path = "./song_data/random_songs/"
