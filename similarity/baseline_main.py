@@ -3,6 +3,8 @@ import numpy as np
 import os
 import pandas as pd
 import similarity
+import sys
+sys.path.append("../")
 import config
 
 SEED_SONG = config.SEED_SONG

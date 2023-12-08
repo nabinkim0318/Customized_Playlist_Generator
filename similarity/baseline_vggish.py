@@ -3,6 +3,8 @@ import numpy as np
 import os
 import pandas as pd
 import similarity
+import sys
+sys.path.append("../")
 import config
 import baseline_main as bm
 import vggish_main as vm
