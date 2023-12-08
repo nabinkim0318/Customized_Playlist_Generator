@@ -4,6 +4,7 @@ import pandas as pd
 # for Novelty Metric
 # assumes that the song name or artist name does not contain the underscore (_)
 def filtering_artist_names(df):
+    print(df)
     user_song_names = list(df['Seed_song_names'])
     predicted_song_names = list(df['All_songs'])
 
@@ -22,7 +23,7 @@ def calculate_novelty(user_artists, recommended_artists):
 def find_key(df, sample):
     artist_condition, name_condition = sample.split('_')
     name_condition = name_condition.replace('.mp3', '')
-    artist_condition, name_condition
+    #artist_condition, name_condition
     found_row = df[df['artists'].apply(lambda x: artist_condition in x) & (df['name'] == name_condition)]
     found_key = found_row['key'].values[0]
     return found_key
@@ -75,21 +76,23 @@ def topN_agreement(prediction_df, gt_rank_df, alpha = 0.5 ** (1/3)):
 
 
 # Run three metrics for the generated playlist
-def main():
-    predict_df = pd.read_csv('prediction.csv')
-    gt_df = pd.read_csv('ground_truth.csv')  
+def main_metric(prediction_df, gt_df):
+    # predict_df = pd.read_csv('prediction.csv')
+    # gt_df = pd.read_csv('ground_truth.csv')  
     
     # Novelty metrics
-    user_artist_names, predicted_artist_names = filtering_artist_names(predict_df)
+    user_artist_names, predicted_artist_names = filtering_artist_names(prediction_df)
     novelty = calculate_novelty(user_artist_names, predicted_artist_names)
     print(f"Novelty Score: {novelty}")
     
     # Entropy metrics 
-    recommended_keys = find_recommended_keys(predict_df)
+    recommended_keys = find_recommended_keys(prediction_df)
     entropy = calculate_diversity(recommended_keys)
     print(f"Entropy: {entropy}")
     
     # topN agreement Metric     
-    topN_score = topN_agreement(predict_df, gt_df)
+    topN_score = topN_agreement(prediction_df, gt_df)
     
-main()
+# if __name__ == "__main__":
+    
+#     main()

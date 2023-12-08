@@ -39,11 +39,11 @@ def playlist_generate(high_level = "evaluation_random", method=ALL_METHODS):
         if high_level.split("_")[1] == "similarity":
             high_level_input.copy_wav_files(source_folder="../song_data/seed_songs/", destination_folder="../song_data/similarity_based")
             result_report = get_playlist_report_reorganize_folders(method=method, vgg=vgg, high_level="similarity_based", seed_song_folder="song_data")
-            result_report.to_csv("../eval/similarity_based_luhee_top5.csv")
+            result_report.to_csv("../eval/similarity_based_luhee_top5.csv",index=False)
         if high_level.split("_")[1] == "random":
             high_level_input.copy_wav_files(source_folder="../song_data/seed_songs/", destination_folder="../song_data/random_songs")
             result_report = get_playlist_report_reorganize_folders(method=method, vgg=vgg, high_level="random_songs", seed_song_folder="song_data")
-            result_report.to_csv("../eval/random_songs_luhee_top5.csv")
+            result_report.to_csv("../eval/random_songs_luhee_top5.csv",index=False)
 
     # iterate through each song
 
@@ -103,7 +103,7 @@ def get_playlist_report_reorganize_folders(method, vgg, high_level="similarity_b
                 else:
                     print(f"Output directory: {output_dir} does not exist!")
     
-    result_report = pd.DataFrame({"Seed song names": seed_song_names_col, "Similarity method": methods_col, "Recommended song": output_song_col})
+    result_report = pd.DataFrame({"Seed_song_names": seed_song_names_col, "Similarity_method": methods_col, "All_songs": output_song_col})
     return result_report
         
 
