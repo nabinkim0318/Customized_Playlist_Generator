@@ -24,13 +24,13 @@ def get_combined_features(audio_file, vggmodel, only_mfccs=False, postprocess=Fa
     x, sr = librosa.load(audio_file, sr=SAMPLING_RATE, mono=True)
     vgg_embedding, _ = vm.extract_vggish(vggmodel, x, sr, postprocess=postprocess)
     vgg_embedding = vgg_embedding.T
-    print(f"Length of your audio: {len(x)}, time = {len(x) / SAMPLING_RATE}" )
+    #print(f"Length of your audio: {len(x)}, time = {len(x) / SAMPLING_RATE}" )
     min_len = min(vgg_embedding.shape[1], audio_features.shape[1])
     vgg_embedding = vgg_embedding[:, :min_len]
     audio_features = audio_features[:, :min_len]
     assert audio_features.shape[1] == vgg_embedding.shape[1], f"Your audio features shape: {audio_features.shape}, your vggish embeddings shape: {vgg_embedding.shape}"
     comb_features = np.vstack([audio_features, vgg_embedding])
-    print(comb_features.shape)
+    #print(comb_features.shape)
     return comb_features
 
 def combine_feature_similarity_rank(audio_path, vgg, seed_song, only_mfccs=False):
@@ -38,8 +38,8 @@ def combine_feature_similarity_rank(audio_path, vgg, seed_song, only_mfccs=False
     file_feature_dict = {}
     # vgg = vggish_embeddings.CreateVGGishNetwork(VGGISH_WINDOW)
     for f in audios:
-        print(f)
-        comb_features = get_combined_features(audio_file=audio_path + f, only_mfccs=only_mfccs, vggmodel=vgg)
+        #print(f)
+        comb_features = get_combined_features(audio_file=os.path.join(audio_path, f), only_mfccs=only_mfccs, vggmodel=vgg)
         
         file_feature_dict[f] = comb_features
     
@@ -52,13 +52,13 @@ def combine_feature_similarity_rank(audio_path, vgg, seed_song, only_mfccs=False
         current_feature = trainData_feature_df.loc[i, "feature"]
         assert seed_feature.dtype == current_feature.dtype, f"SEED dtype:{seed_feature.dtype} CURRENT dypte: {current_feature.dtype} "
         name = trainData_feature_df.loc[i, "name"]
-        print(f"Name of file with similarity issue: {name}")
+        #print(f"Name of file with similarity issue: {name}")
         sim = similarity.cosine_sim(seed_feature, current_feature, FEATURE_ALIGNMENT)
         similarities += [sim]
 
     
     trainData_feature_df["similarities"] = similarities
-    print(trainData_feature_df)
+    #print(trainData_feature_df)
     #trainData_embedding_df.to_csv(f"./similarity_results/{str_process}_{feature_alignment}_{SEED_SONG}_similarities.csv", index=False)
     return trainData_feature_df.sort_values(by="similarities", ascending=False)
     

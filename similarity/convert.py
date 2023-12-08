@@ -1,18 +1,14 @@
-from pydub import AudioSegment
+import os
+import subprocess
 
-def convert_to_wav(input_file, output_file):
-    # Load the input audio file
-    audio = AudioSegment.from_file(input_file)
+def convert_folder_to_wav(input_folder):
+    for foldername, subfolders, filenames in os.walk(input_folder):
+        for filename in filenames:
+            if filename.lower().endswith((".mp3", ".ogg", ".flac")):
+                input_file_path = os.path.join(foldername, filename)
+                output_file_path = os.path.splitext(input_file_path)[0] + ".wav"
+                if not os.path.exists(output_file_path):
+                    subprocess.run(["ffmpeg", "-i", input_file_path, output_file_path])
 
-    # Ensure the output format is WAV
-    if not output_file.endswith(".wav"):
-        output_file = output_file + ".wav"
+                    print(f"Converted: {input_file_path} to {output_file_path}")
 
-    # Export the audio in WAV format
-    audio.export(output_file, format="wav")
-
-if __name__ == "__main__":
-    input_file = "./trainData/14 Hits Different.m4a"  # Replace with the path to your input audio file
-    output_file = "./trainData/TSwiftHitsDifferent.wav"  # Replace with the desired output file name
-
-    convert_to_wav(input_file, output_file)

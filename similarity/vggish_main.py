@@ -30,8 +30,8 @@ def vggish_similarity_rank(audio_path, vgg, seed_song):
     file_embed_dict = {}
     # vgg = vggish_embeddings.CreateVGGishNetwork(0.96)
     for f in audios:
-        print(f)
-        x, sr = librosa.load(audio_path + f, sr = SAMPLING_RATE, mono=True)
+        #print(f)
+        x, sr = librosa.load(os.path.join(audio_path, f), sr = SAMPLING_RATE, mono=True)
         #resdict = vggish_embeddings.EmbeddingsFromVGGish(vgg, x, sr)
         #file_embed_dict[f] = resdict["embedding"]
         embedding, str_process = extract_vggish(vgg, x, sr, postprocess=False)
@@ -47,10 +47,10 @@ def vggish_similarity_rank(audio_path, vgg, seed_song):
         assert seed_embedding.dtype == current_embedding.dtype, f"SEED dtype:{seed_embedding.dtype} CURRENT dypte: {current_embedding.dtype} "
         sim = similarity.cosine_sim(seed_embedding, current_embedding, FEATURE_ALIGNMENT)
         similarities += [sim]
-        print(sim)
+        #print(sim)
     
     trainData_embedding_df["similarities"] = similarities
-    print(trainData_embedding_df)
+    #print(trainData_embedding_df)
     #trainData_embedding_df.to_csv(f"./similarity_results/{str_process}_{feature_alignment}_{SEED_SONG}_similarities.csv", index=False)
     return trainData_embedding_df.sort_values(by="similarities", ascending=False)
     

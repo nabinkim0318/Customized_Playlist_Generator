@@ -104,7 +104,7 @@ def cosine_sim(embedding1, embedding2, feature_alignment):
     # norm2 = np.linalg.norm(embedding2)
     # similarity = dot_product / (norm1 * norm2)
     # Flatten the matrices
-    print(f"embedding1 aligned shape: {embedding1_align.shape} \n embedding2 aligned shape: {embedding2_align.shape}")
+    #print(f"embedding1 aligned shape: {embedding1_align.shape} \n embedding2 aligned shape: {embedding2_align.shape}")
     flat_matrix1 = embedding1_align.flatten()
     flat_matrix2 = embedding2_align.flatten()
 

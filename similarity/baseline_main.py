@@ -58,9 +58,9 @@ def baseline_similarity_rank(audio_path, seed_song, only_mfccs=False):
     for f in audios:
         print(f)
         if only_mfccs:
-            feature = get_only_mfccs(audio_file=audio_path+f)
+            feature = get_only_mfccs(audio_file=os.path.join(audio_path, f))
         else:
-            feature = get_audio_features(audio_file=audio_path + f)
+            feature = get_audio_features(audio_file=os.path.join(audio_path, f))
         
         file_feature_dict[f] = feature
     
@@ -73,13 +73,13 @@ def baseline_similarity_rank(audio_path, seed_song, only_mfccs=False):
         current_feature = trainData_feature_df.loc[i, "feature"]
         assert seed_feature.dtype == current_feature.dtype, f"SEED dtype:{seed_feature.dtype} CURRENT dypte: {current_feature.dtype} "
         name = trainData_feature_df.loc[i, "name"]
-        print(f"Name of file with similarity issue: {name}")
+        #print(f"Name of file with similarity issue: {name}")
         sim = similarity.cosine_sim(seed_feature, current_feature, FEATURE_ALIGNMENT)
         similarities += [sim]
 
     
     trainData_feature_df["similarities"] = similarities
-    print(trainData_feature_df)
+    #print(trainData_feature_df)
     #trainData_embedding_df.to_csv(f"./similarity_results/{str_process}_{feature_alignment}_{SEED_SONG}_similarities.csv", index=False)
     return trainData_feature_df.sort_values(by="similarities", ascending=False)
 
