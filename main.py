@@ -88,9 +88,9 @@ def get_playlist_report_reorganize_folders(method, vgg, high_level="similarity_b
         for m, sim_matrix in tqdm(sim_dict.items()):
             methods_col += [m] * TOP_N
             if seed_song_folder == "song_data":
-                output_dir = os.path.join("..", seed_song_folder, "output", m, drctry)
+                output_dir = os.path.join("..", seed_song_folder, "output", m, high_level, drctry)
             else:
-                output_dir = os.path.join("..", SEED_SONG_FOLDER, "output",m, drctry)
+                output_dir = os.path.join("..", SEED_SONG_FOLDER, "output",m, high_level, drctry)
             # output_dir = os.path.join("..",SEED_SONG_FOLDER, "output", m, drctry)
             if not os.path.exists(output_dir):
                 os.makedirs(output_dir)
