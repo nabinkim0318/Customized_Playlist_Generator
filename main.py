@@ -15,8 +15,9 @@ vggish_window = config.VGGISH_WINDOW
 SEED_SONG_FOLDER = config.SEED_SONG_FOLDER
 ALL_METHODS = config.ALL_METHODS
 TOP_N = config.TOP_N
+high_level = config.HIGH_LEVEL
 
-def playlist_generate(high_level = "similarity", method=ALL_METHODS):
+def playlist_generate(high_level = high_level, method=ALL_METHODS):
         # first convert all files into wav
     convert.convert_folder_to_wav(SEED_SONG_FOLDER)
     
@@ -26,10 +27,19 @@ def playlist_generate(high_level = "similarity", method=ALL_METHODS):
         os.chdir(working_directory)
         subprocess.run(["python3", "similarity_main.py"])
         counter += 1
+    
     vgg = vggish_embeddings.CreateVGGishNetwork(vggish_window)
+    if counter != 0:
+        working_directory = "../"
+        os.chdir(working_directory)
+        subprocess.run(["python3", "high_level_input.py"])
     if high_level == "similarity":
+ 
+        high_level_input.copy_wav_files(source_folder="./audio/seed_songs/", destination_folder="./audio/input/similarity_based")
+
         high_level_input.similarity_based_main()
         result_report = get_playlist_report_reorganize_folders(method=method, vgg=vgg, high_level =high_level+"_based")
+        
     if high_level == "random":
         high_level_input.random_main()
         result_report = get_playlist_report_reorganize_folders(method=method, vgg=vgg, high_level=high_level+"_songs")
@@ -48,7 +58,7 @@ def playlist_generate(high_level = "similarity", method=ALL_METHODS):
     # iterate through each song
 
 
-                
+        result_report.to_csv(f"high_level_{high_level}_{method}_song_list.csv", index=False)
                 
             
             
@@ -56,27 +66,33 @@ def playlist_generate(high_level = "similarity", method=ALL_METHODS):
             
     
 
-    return 
+    return result_report
 
 def get_playlist_report_reorganize_folders(method, vgg, high_level="similarity_based", seed_song_folder=SEED_SONG_FOLDER):
     seed_song_names_col = []
     folder_names = []
     methods_col = []
     output_song_col = []
+    print(f"PLAYLIST REPORT WD: {os.getcwd()}")
     if seed_song_folder == "song_data":
-        song_subset_folder = os.path.join("..", seed_song_folder, high_level)
+        song_subset_folder = os.path.join( seed_song_folder, high_level)
     else:
-        song_subset_folder = os.path.join("..", SEED_SONG_FOLDER, "input",high_level)
+        song_subset_folder = os.path.join(SEED_SONG_FOLDER, "input",high_level)
     
     # looking into each seed song subfolder
-
+    print(f"SONG SUBSET FOLDER: {song_subset_folder}")
+    counter=0
     for drctry in tqdm([entry.name for entry in os.scandir(song_subset_folder) if entry.is_dir()]):
         
         current_seed_song_name = drctry+".wav"
         seed_song_names_col += [current_seed_song_name] * len(method) * TOP_N
         current_folder_name_for_method = os.path.join(song_subset_folder, drctry)
         folder_names += [current_folder_name_for_method]
-
+        if counter == 0:
+            working_directory = "./"
+            os.chdir(working_directory)
+            subprocess.run(["python3", "similarity_main.py"])
+        counter += 1
 
         print(current_seed_song_name)
         print(f"METHOD LIST: {method}")
@@ -87,7 +103,7 @@ def get_playlist_report_reorganize_folders(method, vgg, high_level="similarity_b
             if seed_song_folder == "song_data":
                 output_dir = os.path.join("..", seed_song_folder, "output", m, high_level, drctry)
             else:
-                output_dir = os.path.join("..", SEED_SONG_FOLDER, "output",m, high_level, drctry)
+                output_dir = os.path.join( SEED_SONG_FOLDER, "output",m, high_level, drctry)
             # output_dir = os.path.join("..",SEED_SONG_FOLDER, "output", m, drctry)
             if not os.path.exists(output_dir):
                 os.makedirs(output_dir)
