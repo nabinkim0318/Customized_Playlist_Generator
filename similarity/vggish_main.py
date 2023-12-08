@@ -4,6 +4,8 @@ import os
 import pandas as pd
 import tensorflow.compat.v1 as tf
 import librosa
+import sys
+sys.path.append("../")
 import config
 
 SEED_SONG = config.SEED_SONG

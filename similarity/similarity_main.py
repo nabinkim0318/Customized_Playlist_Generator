@@ -5,6 +5,8 @@ import vggish_main
 import similarity
 import baseline_main
 import baseline_vggish
+import sys
+sys.path.append("../")
 import config
 import os
 import vggish_embeddings
