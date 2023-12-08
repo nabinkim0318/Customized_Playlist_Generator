@@ -232,8 +232,8 @@ def get_recommendation_pool(df):
         #print(sub_df_dict, top_100_songs_id)
 
 def similarity_based_main():
-    get_user_top_items.print_top_items()
-    #get_recommendation_pool(add_user_songs_if_not_exists(term=TERM)) # it should creates a seed_song folder and the corresponding top_10 per seed song
+    #get_user_top_items.print_top_items()
+    get_recommendation_pool(add_user_songs_if_not_exists(term=TERM)) # it should creates a seed_song folder and the corresponding top_10 per seed song
 
 
 
