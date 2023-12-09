@@ -21,6 +21,7 @@ Note: since our project doesn't involve testing, inside the test folder, you wil
 We recommend running this repo as is instead of unzipping the code in the src folder. 
 
 ### Folder Structure
+```
 ├── src
 │   ├── code_only.zip
 ├── eval
@@ -48,6 +49,6 @@ We recommend running this repo as is instead of unzipping the code in the src fo
 ...
 └── .gitignore
 
-
+```
 
 
