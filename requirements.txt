@@ -1,0 +1,11 @@
+pandas
+sys
+os
+subprocess
+shutil
+pydub
+tqdm
+numpy
+requests
+spotipy
+sklearn

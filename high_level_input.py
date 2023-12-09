@@ -233,9 +233,9 @@ def get_recommendation_pool(df):
         #print(sub_df_dict, top_100_songs_id)
 
 def similarity_based_main():
-    #get_user_top_items.print_top_items()
+    get_user_top_items.print_top_items()
     get_recommendation_pool(add_user_songs_if_not_exists(term=TERM)) # it should creates a seed_song folder and the corresponding top_10 per seed song
-
+    copy_wav_files(source_folder="./audio/seed_songs/", destination_folder="./audio/input/similarity_based")
 
 
 
@@ -315,6 +315,7 @@ def random_main():
             count += 1
         print(len(os.listdir('random_songs')))
     move_files()
+    copy_wav_files(source_folder="./audio/seed_songs/", destination_folder="./audio/input/random_songs")
     
 import os
 import shutil

@@ -19,7 +19,7 @@ high_level = config.HIGH_LEVEL
 
 def playlist_generate(high_level = high_level, method=ALL_METHODS):
         # first convert all files into wav
-    convert.convert_folder_to_wav(SEED_SONG_FOLDER)
+
     
     counter = 0
     if counter == 0:
@@ -35,13 +35,17 @@ def playlist_generate(high_level = high_level, method=ALL_METHODS):
         subprocess.run(["python3", "high_level_input.py"])
     if high_level == "similarity":
  
-        high_level_input.copy_wav_files(source_folder="./audio/seed_songs/", destination_folder="./audio/input/similarity_based")
+        #high_level_input.copy_wav_files(source_folder="./audio/seed_songs/", destination_folder="./audio/input/similarity_based")
 
         high_level_input.similarity_based_main()
+        convert.convert_folder_to_wav(SEED_SONG_FOLDER)
+        high_level_input.copy_wav_files(source_folder="./audio/seed_songs/", destination_folder="./audio/input/similarity_based")
         result_report = get_playlist_report_reorganize_folders(method=method, vgg=vgg, high_level =high_level+"_based")
         
     if high_level == "random":
         high_level_input.random_main()
+        convert.convert_folder_to_wav(SEED_SONG_FOLDER)
+        high_level_input.copy_wav_files(source_folder="./audio/seed_songs/", destination_folder="./audio/input/random_songs")
         result_report = get_playlist_report_reorganize_folders(method=method, vgg=vgg, high_level=high_level+"_songs")
     if high_level.split("_")[0] == "evaluation":
         

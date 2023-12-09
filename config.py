@@ -9,6 +9,7 @@ VGGISH_WINDOW = 0.25
 SEED_SONG_FOLDER = "./audio"
 TOP_N = 5
 TERM = "long_term"
+HIGH_LEVEL = "similarity"
 
 """
 LIST OF METHODS:
